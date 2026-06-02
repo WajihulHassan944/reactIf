@@ -1,5 +1,9 @@
 import { PageShell } from "@/components/common/PageShell";
 import PrivacyPolicy from "@/components/pages/Terms/PrivacyPolicyContent";
+<<<<<<< HEAD
+=======
+import GlobalBackground from "@/hooks/GlobalBackground";
+>>>>>>> 2d9775cdacbbbc0903e3db7e7b5dfb3f5a53350c
 
 export default function Page() {
   return (
