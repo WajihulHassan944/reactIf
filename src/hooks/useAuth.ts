@@ -118,16 +118,20 @@ export const useLogin = (redirectUrl?: string | null) => {
     mutationFn: (payload: LoginPayload) => loginUser(payload),
     onSuccess: async (data) => {
       const user = getAuthUserFromResponse(data);
+      const token = extractAuthToken(data);
 
       if (user?.isVerified === false) {
-        clearStoredAuthToken();
+        if (token) {
+          setStoredAuthToken(token);
+        } else {
+          clearStoredAuthToken();
+        }
+
         queryClient.removeQueries({ queryKey: authKeys.currentUser() });
         toast.success("Please verify your account to continue.");
         router.push(buildVerificationRoute(user.email));
         return;
       }
-
-      const token = extractAuthToken(data);
 
       if (token) {
         setStoredAuthToken(token);
@@ -154,10 +158,17 @@ export const useRegister = () => {
 
   return useMutation({
     mutationFn: (payload: RegisterPayload) => registerUser(payload),
-    onSuccess: (_, payload) => {
+    onSuccess: (data, payload) => {
+      const token = extractAuthToken(data);
+      const user = getAuthUserFromResponse(data);
+
+      if (token) {
+        setStoredAuthToken(token);
+      }
+
       queryClient.removeQueries({ queryKey: authKeys.currentUser() });
       toast.success("Account created successfully! OTP sent to your email.");
-      router.push(buildVerificationRoute(payload.email));
+      router.push(buildVerificationRoute(user?.email ?? payload.email));
     },
     onError: (error) => {
       toast.error(
