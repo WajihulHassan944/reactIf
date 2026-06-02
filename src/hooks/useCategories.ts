@@ -7,34 +7,26 @@ import { getErrorMessage } from "@/lib/errors";
 import {
   getCategories,
   getCategory,
+  getServices,
   getServicesBySubcategory,
   type GetCategoriesParams,
   type GetCategoryParams,
+  type GetServicesParams,
   type GetServicesBySubcategoryParams,
 } from "@/services/categories";
 import type { Category } from "@/types/categories";
 
-/**
- * ==============================
- * QUERY KEYS
- * ==============================
- */
-
 export const categoryKeys = {
   all: ["categories"] as const,
   list: (params?: GetCategoriesParams) =>
-    ["categories", "list", params || {}] as const,
+    ["categories", "list", params ?? {}] as const,
   detail: (categoryId?: string | number | null) =>
-    ["categories", "detail", categoryId || ""] as const,
+    ["categories", "detail", categoryId ?? ""] as const,
   services: (subcategoryId?: string | number | null) =>
-    ["categories", "services", subcategoryId || ""] as const,
+    ["categories", "services", subcategoryId ?? ""] as const,
+  servicesList: (params?: GetServicesParams) =>
+    ["categories", "services", "list", params ?? {}] as const,
 };
-
-/**
- * ==============================
- * CATEGORY HOOKS
- * ==============================
- */
 
 export const useCategories = (initialParams: GetCategoriesParams = {}) => {
   const [page, setPage] = useState(initialParams.page ?? 1);
@@ -47,7 +39,9 @@ export const useCategories = (initialParams: GetCategoriesParams = {}) => {
   });
 
   useEffect(() => {
-    const active = (query.data?.data || []).filter((item) => item.status === 1);
+    const active = (query.data?.data ?? []).filter(
+      ({ status }) => status === 1,
+    );
 
     if (page === 1) {
       setCategories(active);
@@ -99,6 +93,22 @@ export const useServicesBySubcategory = (
         subcategoryId: subcategoryId as string | number,
       }),
     enabled: Boolean(subcategoryId),
+  });
+
+  return {
+    ...query,
+    services: query.data?.data ?? [],
+    loading: query.isLoading,
+    error: query.error
+      ? getErrorMessage(query.error, "Failed to fetch services")
+      : null,
+  };
+};
+
+export const useServices = (params: GetServicesParams = {}) => {
+  const query = useQuery({
+    queryKey: categoryKeys.servicesList(params),
+    queryFn: () => getServices(params),
   });
 
   return {

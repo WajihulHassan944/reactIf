@@ -1,14 +1,13 @@
+import { Suspense } from "react";
+import { AuthPageShell } from "@/components/forms/AuthFormShell";
 import VerifyOtpForm from "@/components/forms/VerifyOtpForm";
-import Navbar from "@/components/layout/navbar/navbar";
-import GlobalBackground from "@/hooks/GlobalBackground";
-import Image from "next/image";
 
 export default function Page() {
   return (
-    <section className="relative overflow-hidden">
-      <Navbar />
-      <GlobalBackground />
-      <VerifyOtpForm />
-    </section>
+    <AuthPageShell>
+      <Suspense fallback={null}>
+        <VerifyOtpForm />
+      </Suspense>
+    </AuthPageShell>
   );
 }

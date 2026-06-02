@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { SectionHeader } from "@/components/shared/SectionHeader";
+import { Container } from "@/components/common/Container";
+import { SectionHeader } from "@/components/common/SectionHeader";
 import ContactForm from "@/components/forms/ContactForm";
 import { usePathname } from "next/navigation";
 import { Suspense } from "react";
@@ -12,20 +13,20 @@ function StartProjectContent() {
 
   return (
     <section className="relative py-16 md:py-28 overflow-hidden">
-      {/* Background */}
       {!isHelpCenter && (
         <Image
           src="/assets/hero/gradient.png"
-          alt="Background"
+          alt=""
           fill
+          sizes="100vw"
           className="object-cover -z-10"
         />
       )}
 
-      <div className="mx-auto px-4 sm:px-6 md:px-40">
+      <Container gutter="narrow">
         <SectionHeader
           badgeText="Get in Touch"
-          size={isHelpCenter ? "sm" : "default"} // 👈 clean control
+          size={isHelpCenter ? "sm" : "default"}
           title={
             <>
               START YOUR{" "}
@@ -46,7 +47,7 @@ function StartProjectContent() {
         />
 
         <ContactForm />
-      </div>
+      </Container>
     </section>
   );
 }

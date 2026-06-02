@@ -55,20 +55,7 @@ export const registrationSchema = z
 export type LoginFormValues = z.infer<typeof loginSchema>;
 export type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
 export type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
+export type ResetPasswordValues = ResetPasswordFormValues;
 export type OtpFormValues = z.infer<typeof otpSchema>;
 export type RegistrationFormValues = z.infer<typeof registrationSchema>;
 
-export const getValidationMessage = (error: unknown) => {
-  const result = z.string().safeParse(error);
-  return result.success ? result.data : "Validation failed.";
-};
-
-export const getSchemaValidationMessage = <T>(
-  schema: z.ZodType<T>,
-  values: unknown,
-) => {
-  const result = schema.safeParse(values);
-  return result.success
-    ? null
-    : (result.error.errors[0]?.message ?? "Validation failed.");
-};

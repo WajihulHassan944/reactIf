@@ -1,82 +1,156 @@
-import type { Service, ServiceFormValues } from "@/types/component-props";
+import { getZodFieldErrors } from "@/lib/zod-errors";
+import { rememberBookingDraftFile } from "@/lib/booking-draft";
+import { buildBookingFormDataFromDraft } from "@/lib/booking-payload";
+import type {
+  BookingDraft,
+  BookingDraftFileReference,
+} from "@/types/bookings";
+import type {
+  Service,
+  ServiceFormErrors,
+  ServiceFormValue,
+  ServiceFormValues,
+} from "@/types/component-props";
+import {
+  buildServiceValidationSchema,
+  isFileValue,
+} from "@/validations/bookings";
+
+const buildInitialServiceValue = ({
+  input_type,
+  default_value,
+}: Pick<Service["fields"][number], "input_type" | "default_value">): ServiceFormValue => {
+  if (input_type === "checkbox") return [];
+  if (input_type === "file") return null;
+
+  return default_value ?? "";
+};
 
 export const buildInitialServiceValues = (
   service?: Service | null,
 ): ServiceFormValues => {
-  if (!service?.fields) return {};
+  const { fields } = service ?? {};
 
-  return service.fields.reduce<ServiceFormValues>((values, field) => {
-    values[field.field_name] = field.default_value || "";
+  if (!fields) return {};
+
+  return fields.reduce<ServiceFormValues>((values, field) => {
+    const { field_name, input_type, default_value } = field;
+
+    values[field_name] = buildInitialServiceValue({
+      input_type,
+      default_value,
+    });
     return values;
   }, {});
 };
 
-export const buildBookingFormData = ({
+export const validateServiceForm = (
+  service: Service | null | undefined,
+  values: ServiceFormValues,
+): { isValid: boolean; errors: ServiceFormErrors } => {
+  const schema = buildServiceValidationSchema(service);
+
+  if (!schema) {
+    return { isValid: true, errors: {} };
+  }
+
+  const result = schema.safeParse(values);
+
+  if (result.success) {
+    return { isValid: true, errors: {} };
+  }
+
+  return {
+    isValid: false,
+    errors: getZodFieldErrors(result.error),
+  };
+};
+
+export const buildBookingFormData = ({ draft }: { draft: BookingDraft }) =>
+  buildBookingFormDataFromDraft(draft);
+
+export const buildBookingDraft = ({
   service,
   activeCategory,
+  parentCategory,
   formValues,
   designerId,
 }: {
   service: Service;
   activeCategory: string | null;
+  parentCategory?: string | null;
   formValues: ServiceFormValues;
   designerId?: string | null;
-}) => {
-  const formData = new FormData();
-  const isSchedule = true;
+}): BookingDraft => {
+  const { id, price, name, fields } = service;
+  const subtotal = price ?? 0;
+  const bookingDatetime = new Date().toISOString();
+  const uploadedFileReferences: BookingDraftFileReference[] = [];
 
-  formData.append("service_id", String(service.id));
-  formData.append("address", "Rawalpindi, Pakistan");
-  formData.append("latitude", "33.5651");
-  formData.append("longitude", "73.0169");
-  formData.append("datetime", new Date().toISOString());
-  formData.append("status", "new_booking");
-  formData.append("is_schedule", isSchedule ? "1" : "0");
-  formData.append("distance", "5.5");
-  formData.append("base_fare", String(service.price || 10));
-  formData.append("subtotal", String(service.price || 50));
-  formData.append("extra_charges_amount", "5");
-  formData.append("total_amount", String((service.price || 50) + 5));
-  formData.append("payment_type", "cash");
-  formData.append("booking_type", "without_bidding");
+  const formattedFieldResponses = fields.map((field) => {
+    const { id: fieldId, field_name, input_type, label } = field;
+    const value = formValues[field_name];
+    const fileKey = `file_${fieldId}`;
+    const isFileInput = input_type === "file";
 
-  if (designerId) formData.append("designer_id", designerId);
-  if (isSchedule)
-    formData.append("schedule_datetime", new Date().toISOString());
+    const fileValue = isFileValue(value) ? value : null;
 
-  formData.append(
-    "service_data",
-    JSON.stringify({
-      service_name: service.name,
-      category: activeCategory,
-    }),
-  );
+    if (isFileInput && fileValue) {
+      rememberBookingDraftFile(fileKey, fileValue);
+      uploadedFileReferences.push({
+        fieldName: field_name,
+        fieldId,
+        key: fileKey,
+        name: fileValue.name,
+        type: fileValue.type,
+        size: fileValue.size,
+      });
+    }
 
-  const formattedFieldResponses =
-    service.fields?.map((field) => {
-      const value = formValues[field.field_name];
+    return {
+      field_id: fieldId,
+      field_name,
+      field_type: input_type,
+      lable: label,
+      value: isFileInput
+        ? fileValue
+          ? fileKey
+          : null
+        : Array.isArray(value)
+          ? value.join(", ")
+          : isFileValue(value)
+            ? value.name
+            : (value ?? ""),
+    };
+  });
 
-      if (field.input_type === "file" && value instanceof File) {
-        formData.append(`file_${field.id}`, value);
-      }
-
-      return {
-        field_id: field.id,
-        field_name: field.field_name,
-        field_type: field.input_type,
-        lable: field.label,
-        value:
-          field.input_type === "file"
-            ? value instanceof File
-              ? `file_${field.id}`
-              : null
-            : Array.isArray(value)
-              ? value.join(", ")
-              : (value ?? ""),
-      };
-    }) || [];
-
-  formData.append("field_responses", JSON.stringify(formattedFieldResponses));
-
-  return formData;
+  return {
+    selected_service: {
+      id,
+      name,
+      price,
+      description: service.description,
+      image: service.service_image,
+      field_count: fields.length,
+    },
+    selected_category: parentCategory ?? activeCategory,
+    selected_subcategory: service.sub_category_id
+      ? { id: service.sub_category_id, name: activeCategory }
+      : null,
+    selected_design_path: activeCategory,
+    selected_designer_id: designerId ?? null,
+    dynamic_field_responses: formattedFieldResponses,
+    uploaded_file_references: uploadedFileReferences,
+    address: "",
+    latitude: "",
+    longitude: "",
+    booking_datetime: bookingDatetime,
+    schedule_datetime: bookingDatetime,
+    distance: "",
+    subtotal: String(subtotal),
+    extra_charges_amount: "0",
+    total_amount: String(subtotal),
+    payment_type: "pending",
+    booking_type: "direct",
+  };
 };

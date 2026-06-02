@@ -1,23 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { useAuth } from "@/hooks/useAuth";
-import { useCreateBooking } from "@/hooks/useBookings";
+import { buildLoginRoute, useAuth } from "@/hooks/useAuth";
+import { writeBookingDraft } from "@/lib/booking-draft";
 import { BookingCardHeader } from "./booking-card/BookingCardHeader";
 import { BookingCardSkeleton } from "./booking-card/BookingCardSkeleton";
 import { BookingSummary } from "./booking-card/BookingSummary";
 import { DynamicServiceFields } from "./booking-card/DynamicServiceFields";
+import { ServiceSelector } from "./booking-card/ServiceSelector";
 import { ServiceEmptyState } from "./booking-card/ServiceEmptyState";
 import {
-  buildBookingFormData,
+  buildBookingDraft,
   buildInitialServiceValues,
+  validateServiceForm,
 } from "./booking-card/booking-form-utils";
-import { buildServiceValidationSchema } from "@/validations/bookings";
 import type {
   Service,
   ServiceFormErrors,
+  ServiceFormValue,
   ServiceFormValues,
 } from "@/types/component-props";
 
@@ -25,42 +27,60 @@ interface PaintProtectionCardProps {
   activeItem: string | null;
   setActiveItem: (item: string | null) => void;
   activeCategory: string | null;
+  parentCategory?: string | null;
   services?: Service[];
   isLoading?: boolean;
+  designerId?: string | null;
 }
 
-export default function PaintProtectionCard({
+export function PaintProtectionCard({
   activeItem,
   setActiveItem,
   activeCategory,
+  parentCategory = null,
   services = [],
   isLoading = false,
+  designerId = null,
 }: PaintProtectionCardProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const { user, loading: authLoading } = useAuth();
-  const createBookingMutation = useCreateBooking();
 
   const [formErrors, setFormErrors] = useState<ServiceFormErrors>({});
   const [formValues, setFormValues] = useState<ServiceFormValues>({});
+  const [bookingLoading, setBookingLoading] = useState(false);
 
-  const designerId = searchParams.get("designerId");
-  const currentService = services.find(
-    (service) => service.id.toString() === activeItem,
+  const currentService = useMemo(
+    () => services.find(({ id }) => id.toString() === activeItem),
+    [activeItem, services],
   );
-  const bookingLoading = createBookingMutation.isPending;
 
   useEffect(() => {
-    if (!isLoading && services.length > 0) {
+    if (isLoading) return;
+
+    if (services.length === 0) {
+      setActiveItem(null);
+      return;
+    }
+
+    const hasActiveService = services.some(
+      ({ id }) => id.toString() === activeItem,
+    );
+
+    if (!hasActiveService) {
       setActiveItem(services[0].id.toString());
     }
-  }, [activeCategory, services, isLoading, setActiveItem]);
+  }, [activeItem, services, isLoading, setActiveItem]);
 
   useEffect(() => {
     setFormValues(buildInitialServiceValues(currentService));
+    setFormErrors({});
   }, [currentService]);
 
-  const handleChange = (fieldName: string, value: unknown) => {
+  const handleSelectService = (serviceId: string) => {
+    setActiveItem(serviceId);
+  };
+
+  const handleChange = (fieldName: string, value: ServiceFormValue) => {
     setFormValues((prev) => ({ ...prev, [fieldName]: value }));
     setFormErrors((prev) => {
       const updated = { ...prev };
@@ -70,24 +90,18 @@ export default function PaintProtectionCard({
   };
 
   const validateForm = () => {
-    const schema = buildServiceValidationSchema(currentService);
-    if (!schema) return true;
-
-    const result = schema.safeParse(formValues);
-    if (result.success) {
-      setFormErrors({});
-      return true;
-    }
-
-    const errors: ServiceFormErrors = {};
-    result.error.errors.forEach((error) => {
-      const field = error.path[0] as string;
-      errors[field] = error.message;
-    });
+    const { errors, isValid } = validateServiceForm(
+      currentService,
+      formValues,
+    );
 
     setFormErrors(errors);
-    toast.error("Please fill all required fields");
-    return false;
+
+    if (!isValid) {
+      toast.error("Please fill all required fields");
+    }
+
+    return isValid;
   };
 
   const handleCreateBooking = async () => {
@@ -98,39 +112,52 @@ export default function PaintProtectionCard({
 
     if (!user) {
       toast.error("Please login first");
-      if (typeof window !== "undefined") {
-        localStorage.setItem("redirectAfterLogin", window.location.href);
-      }
-      router.push("/login");
+      const redirectUrl =
+        typeof window !== "undefined"
+          ? `${window.location.pathname}${window.location.search}${window.location.hash}`
+          : null;
+      router.push(buildLoginRoute(redirectUrl));
       return;
     }
 
     if (!validateForm()) return;
 
     try {
-      const formData = buildBookingFormData({
+      setBookingLoading(true);
+      const draft = buildBookingDraft({
         service: currentService,
         activeCategory,
+        parentCategory,
         formValues,
         designerId,
       });
 
-      await createBookingMutation.mutateAsync(formData);
-      router.push("/order/management");
-    } catch (error) {
-      console.error("Booking Error:", error);
+      writeBookingDraft(draft);
+      router.push("/order/address");
+    } catch {
+      toast.error("Failed to save booking draft");
+    } finally {
+      setBookingLoading(false);
     }
   };
 
   return (
-    <div className="w-full md:w-auto p-6 md:p-8 rounded-3xl outline outline-1 outline-slate-700 flex flex-col gap-6">
+    <div className="w-full md:w-auto p-6 md:p-8 rounded-3xl outline-1 outline-slate-700 flex flex-col gap-6">
       <BookingCardHeader activeCategory={activeCategory} />
 
       {isLoading && <BookingCardSkeleton />}
 
+      {!isLoading && services.length > 1 && (
+        <ServiceSelector
+          services={services}
+          selectedServiceId={activeItem}
+          onSelect={handleSelectService}
+        />
+      )}
+
       {!isLoading && (
         <div className="text-neutral-400 text-sm md:text-base font-medium font-hk leading-relaxed">
-          {currentService?.description ||
+          {currentService?.description ??
             "Please select a service to configure your request."}
         </div>
       )}

@@ -1,10 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import Navbar from "@/components/layout/navbar/navbar";
-import { SectionHeader } from "@/components/shared/SectionHeader";
+import { Container } from "@/components/common/Container";
+import { PageShell } from "@/components/common/PageShell";
+import { SectionHeader } from "@/components/common/SectionHeader";
 import SubCategories from "@/components/pages/SubCategories/SubCategories";
-import GlobalBackground from "@/hooks/GlobalBackground";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useCategoryDetail } from "@/hooks/useCategories";
 
@@ -14,19 +14,15 @@ const Subcategories = () => {
   const categoryId = searchParams.get("id");
 
   const { category, loading, error } = useCategoryDetail(categoryId);
-  const categoryName = category?.name || "";
-  const subcategories = (category?.subcategories || []).filter(
-    (item) => item.status === 1,
+  const categoryName = category?.name ?? "";
+  const subcategories = (category?.subcategories ?? []).filter(
+    ({ status }) => status === 1,
   );
   const errorState =
     error ||
     (!loading && subcategories.length === 0
       ? "No subcategories available."
       : null);
-
-  /* =========================
-     Error Popup
-  ========================= */
 
   if (errorState) {
     return (
@@ -46,11 +42,8 @@ const Subcategories = () => {
   }
 
   return (
-    <section className="relative overflow-hidden">
-      <Navbar />
-      <GlobalBackground />
-
-      <div className="mx-auto px-4 sm:px-6 md:px-30 py-12 md:py-20">
+    <PageShell>
+      <Container gutter="page" className="py-12 md:py-20">
         <SectionHeader
           title={
             <span style={{ color: "#F5F5F5" }}>
@@ -71,8 +64,8 @@ const Subcategories = () => {
         ) : (
           <SubCategories subcategories={subcategories} />
         )}
-      </div>
-    </section>
+      </Container>
+    </PageShell>
   );
 };
 

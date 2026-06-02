@@ -9,19 +9,14 @@ import { DesktopNavLinks } from "./nav/DesktopNavLinks";
 import { MobileSidebar } from "./nav/MobileSidebar";
 import { NavbarActions } from "./nav/NavbarActions";
 import { NavbarLogo } from "./nav/NavbarLogo";
-import type { NavbarUser } from "@/types/component-props";
+import { useAuth } from "@/hooks/useAuth";
 
-const Navbar = () => {
+export function Navbar() {
   const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [user, setUser] = useState<NavbarUser | null>(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("current_user");
-    if (storedUser) setUser(JSON.parse(storedUser));
-  }, []);
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -38,17 +33,14 @@ const Navbar = () => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("sessionToken");
-    localStorage.removeItem("current_user");
-    setUser(null);
-    router.push("/login");
+    logout();
   };
 
   return (
     <>
       <nav className="w-full flex justify-center py-4 md:py-6 px-4 md:px-10">
-        <div className="w-[95%] border border-[#FFFFFF3D] rounded-[14px] px-4 md:px-6 py-3 md:py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3 md:gap-5">
+        <div className="flex w-[95%] items-center justify-between gap-4 rounded-[14px] border border-[#FFFFFF3D] px-4 py-3 md:px-6 md:py-4">
+          <div className="flex min-w-0 items-center gap-3 md:gap-5">
             <Button
               className="md:hidden text-white"
               onClick={() => setIsSidebarOpen(true)}
@@ -65,6 +57,7 @@ const Navbar = () => {
             dropdownOpen={dropdownOpen}
             dropdownRef={dropdownRef}
             onToggleDropdown={() => setDropdownOpen((isOpen) => !isOpen)}
+            onCloseDropdown={() => setDropdownOpen(false)}
             onLogout={handleLogout}
           />
         </div>
@@ -80,6 +73,4 @@ const Navbar = () => {
       />
     </>
   );
-};
-
-export default Navbar;
+}

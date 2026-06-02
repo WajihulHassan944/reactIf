@@ -1,17 +1,18 @@
 import Image from "next/image";
 import { ArrowRight, ShoppingCart } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import type { CatalogCardProps } from "@/types/component-props";
 
 function CatalogCard({ item }: CatalogCardProps) {
+  const { image, title, category, price, desc } = item;
+
   return (
     <div className="bg-white/5 rounded-xl border border-white/5 overflow-hidden hover:scale-[1.02] transition">
       <div className="h-52 bg-slate-950 flex items-center justify-center p-4">
         <div className="relative h-[160px] w-full">
           <Image
-            src={item.image}
-            alt={item.title}
+            src={image}
+            alt={title}
             fill
             sizes="300px"
             className="object-contain"
@@ -22,26 +23,34 @@ function CatalogCard({ item }: CatalogCardProps) {
       <div className="p-5 flex flex-col gap-3 bg-[#010304]">
         <div className="flex justify-between items-center">
           <span className="text-[10px] font-bold uppercase tracking-wide text-pink-500">
-            {item.category}
+            {category}
           </span>
-          <span className="text-white font-bold text-sm">{item.price}</span>
+          <span className="text-white font-bold text-sm">{price}</span>
         </div>
 
-        <h3 className="text-white font-bold text-lg leading-6">{item.title}</h3>
+        <h3 className="text-white font-bold text-lg leading-6">{title}</h3>
 
         <p className="text-slate-400 text-sm leading-6 line-clamp-3">
-          {item.desc}
+          {desc}
         </p>
 
         <div className="flex justify-between items-center pt-4">
-          <Button className="flex items-center gap-2 text-orange-500 font-semibold text-sm hover:gap-3 transition">
+          <button
+            type="button"
+            aria-label={`View details for ${title}`}
+            className="flex items-center gap-2 text-sm font-semibold text-orange-500 transition hover:gap-3"
+          >
             View Details
             <ArrowRight size={16} />
-          </Button>
+          </button>
 
-          <Button className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center hover:bg-white/20 transition">
+          <button
+            type="button"
+            aria-label={`Add ${title} to cart`}
+            className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 transition hover:bg-white/20"
+          >
             <ShoppingCart size={16} className="text-white" />
-          </Button>
+          </button>
         </div>
       </div>
     </div>

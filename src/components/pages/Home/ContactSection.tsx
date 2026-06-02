@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { Container } from "@/components/common/Container";
 import { ContactCtaCard } from "./contact-section/ContactCtaCard";
 
 export default function ContactSection() {
@@ -16,14 +17,15 @@ export default function ContactSection() {
     <section className="relative py-10 md:py-5 overflow-hidden">
       <Image
         src="/assets/hero/gradient.png"
-        alt="Background"
+        alt=""
         fill
+        sizes="100vw"
         className="object-cover -z-10"
       />
 
-      <div className="mx-auto px-4 sm:px-6 md:px-30">
+      <Container gutter="page">
         <ContactCtaCard loading={loading} onRequestQuote={handleRequestQuote} />
-      </div>
+      </Container>
     </section>
   );
 }

@@ -1,15 +1,15 @@
 "use client";
 
+import { PageShell } from "@/components/common/PageShell";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { Container } from "@/components/common/Container";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import Navbar from "@/components/layout/navbar/navbar";
 import PaintDetailsHeader from "@/components/pages/PaintProtection/PaintDetailsHeader";
 import ServicesRow from "@/components/pages/PaintProtection/ServicesRow";
 import CarPreviewSection from "@/components/pages/PaintProtection/CarPreviewSection";
-import PaintProtectionCard from "@/components/pages/PaintProtection/PaintProtectionCard";
+import { PaintProtectionCard } from "@/components/pages/PaintProtection/PaintProtectionCard";
 import { Loader2 } from "lucide-react";
-import GlobalBackground from "@/hooks/GlobalBackground";
 import {
   useCategoryDetail,
   useServicesBySubcategory,
@@ -19,12 +19,31 @@ import type { Subcategory } from "@/types/categories";
 type ActiveItem = string | null;
 
 export default function Page() {
+  return (
+    <Suspense
+      fallback={
+        <PageShell className="min-h-screen">
+          <Container gutter="page" className="py-10">
+            <div className="w-full rounded-3xl border border-slate-800 bg-neutral-950/60 p-8 text-center text-neutral-400">
+              Loading service details...
+            </div>
+          </Container>
+        </PageShell>
+      }
+    >
+      <PaintProtectionContent />
+    </Suspense>
+  );
+}
+
+function PaintProtectionContent() {
   const params = useParams();
   const searchParams = useSearchParams();
   const router = useRouter();
 
   const id = params?.id as string;
   const urlSubcategoryId = searchParams.get("subcategoryId");
+  const designerId = searchParams.get("designerId");
 
   const [activeItem, setActiveItem] = useState<ActiveItem>("frontBlock");
   const [activeCategory, setActiveCategory] = useState<string>("");
@@ -41,9 +60,15 @@ export default function Page() {
   const { services, loading: isLoading } =
     useServicesBySubcategory(activeSubcategoryId);
 
-  const categoryName = category?.name || "";
+  const categoryName = category?.name ?? "";
   const status = category?.status ?? 1;
-  const subcategories = (category?.subcategories || []) as Subcategory[];
+  const subcategories = useMemo(
+    () => (category?.subcategories ?? []) as Subcategory[],
+    [category?.subcategories],
+  );
+  const displayCategoryName = activeCategory.trim()
+    ? activeCategory
+    : categoryName;
 
   useEffect(() => {
     if (!subcategories.length) return;
@@ -95,14 +120,11 @@ export default function Page() {
   );
 
   return (
-    <section className="relative overflow-hidden min-h-screen">
-      <Navbar />
-      <GlobalBackground />
-
+    <PageShell className="min-h-screen">
       {(isFetchingCategory || categoryError) && <Overlay />}
 
       {!categoryError && !isFetchingCategory && categoryName && (
-        <div className="w-full mx-auto px-4 sm:px-6 md:px-30 pb-12 md:pb-20 pt-6 md:pt-10 flex flex-col">
+        <Container gutter="page" className="pb-12 md:pb-20 pt-6 md:pt-10 flex flex-col">
           <PaintDetailsHeader name={categoryName} status={status} />
 
           <ServicesRow
@@ -132,7 +154,7 @@ export default function Page() {
             <div className="w-full lg:flex-1">
               <CarPreviewSection
                 activeItem={activeItem}
-                activeCategory={activeCategory || categoryName}
+                activeCategory={displayCategoryName}
                 services={services}
                 isLoading={isLoading}
               />
@@ -142,14 +164,16 @@ export default function Page() {
               <PaintProtectionCard
                 activeItem={activeItem}
                 setActiveItem={setActiveItem}
-                activeCategory={activeCategory || categoryName}
+                activeCategory={displayCategoryName}
+                parentCategory={categoryName}
                 services={services}
                 isLoading={isLoading}
+                designerId={designerId}
               />
             </div>
           </div>
-        </div>
+        </Container>
       )}
-    </section>
+    </PageShell>
   );
 }

@@ -82,26 +82,29 @@ export const configurationOptionGroups = [
 ];
 
 export const personalInfoFields = [
-  { label: "Full Name", defaultValue: "John Doe" },
-  { label: "Email Address", defaultValue: "john.doe@acme.com" },
-  { label: "Phone Number", defaultValue: "+1 (555) 123-4567" },
+  { label: "Full Name", defaultValue: "" },
+  { label: "Email Address", defaultValue: "" },
+  { label: "Phone Number", defaultValue: "" },
 ];
 
 export const addressFields = [
   {
     label: "Street Address",
-    defaultValue: "123 Business St, Suite 100",
+    name: "street",
+    defaultValue: "",
     fullWidth: true,
   },
-  { label: "City", defaultValue: "San Francisco" },
-  { label: "State", defaultValue: "CA" },
-  { label: "Zip Code", defaultValue: "94567" },
+  { label: "City", name: "city", defaultValue: "" },
+  { label: "State", name: "state", defaultValue: "" },
+  { label: "Zip Code", name: "zip", defaultValue: "" },
+  { label: "Latitude", name: "latitude", defaultValue: "" },
+  { label: "Longitude", name: "longitude", defaultValue: "" },
 ];
 
 export const paymentSummaryRows: OrderPriceRowData[] = [
-  { label: "Sub Total", value: "$1100.00" },
-  { label: "Tax (10%)", value: "$110.00" },
-  { label: "Service Margin", value: "$40.00" },
+  { label: "Sub Total", value: "Pending booking" },
+  { label: "Tax", value: "Pending booking" },
+  { label: "Service Margin", value: "Pending booking" },
 ];
 
 export const paymentMethods: OrderPaymentMethodData[] = [
@@ -122,9 +125,9 @@ export const paymentSecondaryFields = [
 ];
 
 export const orderConfirmationInfo: OrderInfoItemData[] = [
-  { title: "Order Number", value: "123-4567890" },
-  { title: "Order Date", value: "October 26, 2023" },
-  { title: "Payment Method", value: "Visa ending in 1234" },
+  { title: "Order Number", value: "Pending booking" },
+  { title: "Order Date", value: "Recorded after booking" },
+  { title: "Payment Method", value: "Confirmed payment" },
 ];
 
 export const orderConfirmationItems: OrderItemData[] = [
@@ -146,20 +149,20 @@ export const shipmentStatuses: ShipmentStatusData[] = [
 ];
 
 export const shipmentTimeline: TrackingTimelineItemData[] = [
-  { icon: "store", title: "Shipment Created", date: "July 20, 2024, 10:00 AM" },
-  { icon: "truck", title: "Package Picked Up", date: "July 21, 2024, 2:00 PM" },
-  { icon: "truck", title: "In Transit", date: "July 22, 2024, 8:00 AM" },
+  { icon: "store", title: "Shipment Created", date: "Pending booking" },
+  { icon: "truck", title: "Package Picked Up", date: "Pending pickup" },
+  { icon: "truck", title: "In Transit", date: "Pending transit" },
   {
     icon: "check",
     title: "Delivered",
-    date: "July 26, 2024, 12:00 PM",
+    date: "Pending delivery",
     last: true,
   },
 ];
 
 export const shipmentDetails: TrackingDetailData[] = [
-  { title: "Tracking Number", value: "1Z999AA10123456789" },
-  { title: "Carrier", value: "Speedy Delivery" },
+  { title: "Tracking Number", value: "Pending booking" },
+  { title: "Carrier", value: "Assigned after booking" },
   { title: "Service Type", value: "Ground" },
   { title: "Weight", value: "5 lbs" },
   { title: "Dimensions", value: "12x10x8 inches" },

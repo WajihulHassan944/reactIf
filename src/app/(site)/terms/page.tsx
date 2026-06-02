@@ -1,20 +1,17 @@
-import Navbar from "@/components/layout/navbar/navbar";
+import { PageShell } from "@/components/common/PageShell";
 import TermsOfService from "@/components/pages/Terms/TermsContent";
-import GlobalBackground from "@/hooks/GlobalBackground";
 
 export default function Page() {
   return (
-    <section className="relative overflow-hidden">
-      <Navbar />
-      <GlobalBackground
-        style={{
-          backgroundImage: `
+    <PageShell
+      backgroundStyle={{
+        backgroundImage: `
       linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
       url('/assets/AllVendorServices/background.png')
     `,
-        }}
-      />
+      }}
+    >
       <TermsOfService />
-    </section>
+    </PageShell>
   );
 }

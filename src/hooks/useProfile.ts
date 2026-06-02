@@ -1,9 +1,12 @@
 "use client";
 
+import { useMemo } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { clearStoredAuthToken } from "@/lib/auth-token";
 import { getErrorMessage } from "@/lib/errors";
+import { getImageSource } from "@/lib/image-source";
 import {
   deleteUserAccount,
   getUserProfile,
@@ -15,44 +18,40 @@ import type {
   UserProfile,
 } from "@/types/profile";
 
-/**
- * ==============================
- * QUERY KEYS
- * ==============================
- */
-
 export const profileKeys = {
   all: ["profile"] as const,
   detail: () => ["profile", "detail"] as const,
 };
 
-/**
- * ==============================
- * HELPERS
- * ==============================
- */
-
 const mapProfile = (
   backendUser: BackendUserProfile,
   isVerified = false,
-): UserProfile => ({
-  id: backendUser.id,
-  name: backendUser.name,
-  email: backendUser.email,
-  phone: backendUser.contact_number || "",
-  avatar: backendUser.profile_image || null,
-  address: backendUser.address || "",
-  bio: backendUser.bio || "",
-  created_at: backendUser.created_at,
-  updated_at: backendUser.updated_at,
-  is_verified: isVerified,
-});
+): UserProfile => {
+  const {
+    id,
+    name,
+    email,
+    contact_number,
+    profile_image,
+    address,
+    bio,
+    created_at,
+    updated_at,
+  } = backendUser;
 
-/**
- * ==============================
- * PROFILE HOOKS
- * ==============================
- */
+  return {
+    id,
+    name,
+    email,
+    phone: contact_number ?? "",
+    avatar: profile_image ? getImageSource(profile_image, "") || null : null,
+    address: address ?? "",
+    bio: bio ?? "",
+    created_at,
+    updated_at,
+    is_verified: isVerified,
+  };
+};
 
 export const useProfile = () => {
   const query = useQuery({
@@ -60,13 +59,10 @@ export const useProfile = () => {
     queryFn: getUserProfile,
   });
 
-  const storedUser =
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("current_user") || "{}")
-      : {};
-  const mappedProfile = query.data?.data
-    ? mapProfile(query.data.data, storedUser.isVerified ?? false)
-    : null;
+  const mappedProfile = useMemo(
+    () => (query.data?.data ? mapProfile(query.data.data, true) : null),
+    [query.data],
+  );
 
   return {
     ...query,
@@ -85,14 +81,7 @@ export const useUpdateProfile = () => {
 
   return useMutation({
     mutationFn: (payload: ProfileFormPayload) => updateUserProfile(payload),
-    onSuccess: (result) => {
-      const storedUser = JSON.parse(
-        localStorage.getItem("current_user") || "{}",
-      );
-      localStorage.setItem(
-        "current_user",
-        JSON.stringify({ ...storedUser, ...result.data }),
-      );
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: profileKeys.all });
       toast.success("Profile updated successfully.");
       router.push("/profile");
@@ -110,8 +99,7 @@ export const useDeleteAccount = () => {
   return useMutation({
     mutationFn: deleteUserAccount,
     onSuccess: () => {
-      localStorage.removeItem("sessionToken");
-      localStorage.removeItem("current_user");
+      clearStoredAuthToken();
       queryClient.clear();
       toast.success("Account deleted successfully.");
       router.push("/");

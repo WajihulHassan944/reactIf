@@ -1,6 +1,7 @@
 "use client";
 
 import { Phone, Mail } from "lucide-react";
+import { Container } from "@/components/common/Container";
 
 export default function TopInfoBar() {
   return (
@@ -12,9 +13,6 @@ export default function TopInfoBar() {
         borderBottom: "2px solid #515151",
       }}
     >
-      {/* ===== Glow rectangles ===== */}
-
-      {/* Blue glow */}
       <div
         className="absolute -left-40 -top-20 w-[620px] h-[220px] rounded-full opacity-40 pointer-events-none"
         style={{
@@ -23,7 +21,6 @@ export default function TopInfoBar() {
         }}
       />
 
-      {/* Pink glow */}
       <div
         className="absolute -right-40 -top-20 w-[620px] h-[220px] rounded-full opacity-40 pointer-events-none"
         style={{
@@ -32,23 +29,10 @@ export default function TopInfoBar() {
         }}
       />
 
-      {/* ===== Content ===== */}
-
-      <div
-        className="
-          relative mx-auto
-          px-4 sm:px-6 md:px-20
-          py-2 md:py-0
-          md:h-[40px]
-          flex
-          flex-col md:flex-row
-          items-center
-          justify-center md:justify-between
-          gap-2 md:gap-0
-          text-center md:text-left
-        "
+      <Container
+        gutter="topbar"
+        className="relative py-2 md:py-0 md:h-[40px] flex flex-col md:flex-row items-center justify-center md:justify-between gap-2 md:gap-0 text-center md:text-left"
       >
-        {/* LEFT */}
         <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-6 text-[#F5F5F5]">
           <div className="flex items-center gap-2">
             <Phone size={14} />
@@ -61,12 +45,10 @@ export default function TopInfoBar() {
           </div>
         </div>
 
-        {/* RIGHT */}
-
         <p className="text-[#F5F5F5] whitespace-nowrap">
           Automotive Visual Communication Expert
         </p>
-      </div>
+      </Container>
     </div>
   );
 }

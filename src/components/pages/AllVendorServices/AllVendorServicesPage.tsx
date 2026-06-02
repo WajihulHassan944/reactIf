@@ -1,20 +1,18 @@
-import Navbar from "@/components/layout/navbar/navbar";
-import GlobalBackground from "@/hooks/GlobalBackground";
+import { Container } from "@/components/common/Container";
+import { PageShell } from "@/components/common/PageShell";
 import DeliveryService from "./DeliveryService";
 import SpecialistsSection from "./SpecialistsSection";
 
 export default function AllVendorServicesPage() {
   return (
     <>
-      <section className="relative overflow-hidden">
-        <Navbar />
-        <GlobalBackground />
+      <PageShell>
         <SpecialistsSection />
-      </section>
+      </PageShell>
 
-      <div className="bg-[#010304] px-4 sm:px-6 md:px-30 pb-16 md:pb-30">
+      <Container gutter="page" className="bg-[#010304] pb-16 md:pb-30">
         <DeliveryService />
-      </div>
+      </Container>
     </>
   );
 }

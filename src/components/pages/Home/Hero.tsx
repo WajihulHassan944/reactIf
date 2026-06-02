@@ -1,27 +1,28 @@
 "use client";
 
 import Image from "next/image";
-import Navbar from "@/components/layout/navbar/navbar";
+import { Container } from "@/components/common/Container";
 import { HeroCarImage } from "./hero/HeroCarImage";
 import { HeroContent } from "./hero/HeroContent";
 
 export default function Hero() {
   return (
-    <section className="relative w-full min-h-screen flex items-center flex-col overflow-hidden">
-      <Navbar />
-
+    <section className="relative flex w-full flex-col overflow-hidden ">
       <Image
         src="/assets/hero/gradient.png"
-        alt="Background"
+        alt=""
         fill
         priority
+        sizes="100vw"
         className="object-cover -z-10"
       />
 
-      <div className="mx-auto w-full px-4 sm:px-6 md:pl-20 md:pr-12 pt-10 md:pt-15 pb-10 md:pb-15 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-center md:items-start">
+      <Container
+        className="grid w-[90%] max-w-none grid-cols-1 items-center gap-8 pt-6 pb-10 md:pt-6 md:pb-12 lg:grid-cols-[minmax(0,1fr)_minmax(400px,1fr)] lg:gap-6 lg:pt-6 lg:pb-8 xl:gap-8 "
+      >
         <HeroContent />
         <HeroCarImage />
-      </div>
+      </Container>
     </section>
   );
 }

@@ -1,45 +1,31 @@
 "use client";
 
+import type { ReactNode } from "react";
+
 import Image from "next/image";
+import { Container } from "@/components/common/Container";
 import { Button } from "@/components/ui/button";
 import { Twitter, Facebook, Instagram, Youtube } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-
-interface User {
-  userId: number;
-  email: string;
-  displayName: string;
-  isVerified: boolean;
-}
+import { useCurrentUser } from "@/hooks/useAuth";
 
 export default function Footer() {
   const router = useRouter();
-  const [user, setUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("current_user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
+  const { data: user } = useCurrentUser();
 
   return (
     <footer className="relative text-white overflow-hidden">
-      {/* ================= BACKGROUND ================= */}
       <Image
         src="/assets/footer/background.png"
-        alt="footer bg"
+        alt=""
         fill
-        priority
+        sizes="100vw"
         className="object-cover -z-10"
       />
 
-      <div className="max-w-7xl mx-auto px-8 py-12">
-        {/* ================= TOP GRID ================= */}
+      <Container width="7xl" gutter="compact" className="py-12">
         <div className="grid lg:grid-cols-2 gap-16">
-          {/* LEFT */}
           <div className="space-y-6">
             <h2 className="text-4xl font-semibold leading-tight">
               Reactif Printing & Design <br /> Platform
@@ -50,17 +36,10 @@ export default function Footer() {
               design solutions.
             </p>
 
-            <div className="h-11 px-5 py-2.5 bg-white rounded-[100px] shadow-[0px_0px_85px_0px_rgba(255,255,255,1.00)] outline outline-1 outline-offset-[-1px] outline-white inline-flex justify-center items-center gap-2.5">
-              <Link
-                href="/login"
-                className="text-center justify-start text-zinc-800 font-bold font-hk text-[14px]"
-              >
-                GET STARTED
-              </Link>
-            </div>
+            <Button asChild variant="whiteGlow" className="h-11 px-5 py-2.5 rounded-[100px] outline-1 outline-offset-[-1px] outline-white text-[14px] font-hk">
+              <Link href="/login">GET STARTED</Link>
+            </Button>
           </div>
-
-          {/* RIGHT LINKS */}
           <div className="grid grid-cols-3 gap-10 text-sm">
             <FooterColumn
               title="Services"
@@ -98,13 +77,8 @@ export default function Footer() {
             />
           </div>
         </div>
-
-        {/* ================= DIVIDER ================= */}
         <div className="my-8 border-t border-white/10" />
-
-        {/* ================= BOTTOM ROW ================= */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* Social */}
           <div className="flex items-center gap-5">
             <span className="text-sm text-white/60">Follow us</span>
 
@@ -121,8 +95,6 @@ export default function Footer() {
               <Youtube size={16} />
             </SocialIcon>
           </div>
-
-          {/* Buttons */}
           <div className="flex gap-4">
             {!user && (
               <Button
@@ -143,12 +115,10 @@ export default function Footer() {
             </Button>
           </div>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }
-
-/* ================= COMPONENTS ================= */
 
 function FooterColumn({
   title,
@@ -162,10 +132,10 @@ function FooterColumn({
       <h4 className="font-semibold">{title}</h4>
 
       <ul className="space-y-2 text-white/60">
-        {links.map((link) => (
-          <li key={link.label}>
-            <Link href={link.href} className="hover:text-white transition">
-              {link.label}
+        {links.map(({ label, href }) => (
+          <li key={label}>
+            <Link href={href} className="hover:text-white transition">
+              {label}
             </Link>
           </li>
         ))}
@@ -174,7 +144,7 @@ function FooterColumn({
   );
 }
 
-function SocialIcon({ children }: any) {
+function SocialIcon({ children }: { children: ReactNode }) {
   return (
     <div className="w-8 h-8 flex items-center justify-center rounded-full border border-white/20 hover:bg-white/10 transition cursor-pointer">
       {children}

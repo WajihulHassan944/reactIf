@@ -5,54 +5,55 @@ import type { DesktopNavLinksProps } from "@/types/component-props";
 
 export function DesktopNavLinks({ user }: DesktopNavLinksProps) {
   return (
-    <div className="hidden md:flex items-center gap-8 text-sm text-white">
-      {publicNavItems.map((item) => (
+    <div className="relative z-20 hidden shrink-0 items-center gap-8 text-sm text-white md:flex">
+      {publicNavItems.map(({ label, highlight, href, badge }) => (
         <div
-          key={item.label}
+          key={label}
           className={
-            item.highlight
-              ? "relative inline-block w-max"
-              : "flex items-center gap-2"
+            highlight
+              ? "relative inline-flex w-max shrink-0 items-center"
+              : "relative z-20 flex shrink-0 items-center gap-2"
           }
         >
-          {item.highlight && (
-            <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 w-32 h-16 pointer-events-none">
+          {highlight && (
+            <div className="pointer-events-none absolute -bottom-5 left-1/2 -z-10 h-16 w-32 -translate-x-1/2">
               <Image
                 src="/assets/elipse.png"
-                alt="elipse background"
+                alt=""
                 fill
+                sizes="48px"
                 className="object-contain"
               />
             </div>
           )}
 
           <Link
-            href={item.href}
+            href={href}
             className={
-              item.highlight
-                ? "relative px-4 py-1.5 rounded-full bg-transparent text-gray-300 z-10"
-                : "hover:text-blue-400 transition text-gray-300"
+              highlight
+                ? "relative z-10 whitespace-nowrap rounded-full bg-transparent px-4 py-1.5 text-gray-200"
+                : "whitespace-nowrap text-gray-200 transition hover:text-blue-400"
             }
           >
-            {item.label}
+            {label}
           </Link>
 
-          {item.badge && (
+          {badge && (
             <span className="text-[12px] bg-[#E2E2E2] px-3 py-[3px] rounded-full text-black font-[400]">
-              {item.badge}
+              {badge}
             </span>
           )}
         </div>
       ))}
 
       {user &&
-        authenticatedNavItems.map((item) => (
+        authenticatedNavItems.map(({ label, href }) => (
           <Link
-            key={item.label}
-            href={item.href}
+            key={label}
+            href={href}
             className="hover:text-blue-400 transition text-gray-300"
           >
-            {item.label}
+            {label}
           </Link>
         ))}
     </div>

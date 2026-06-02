@@ -1,3 +1,16 @@
+import Image from "next/image";
+
+import { CONTACT_LABEL_CLASS } from "./contact-form-classes";
+
+const trustedAvatarItems = [
+  "ReactIf client 1",
+  "ReactIf client 2",
+  "ReactIf client 3",
+  "ReactIf client 4",
+  "ReactIf client 5",
+  "ReactIf client 6",
+];
+
 export function TrustedByCard() {
   return (
     <div className="relative mt-6 md:mt-10 rounded-xl border border-white/50 p-4 md:p-6 overflow-hidden">
@@ -10,20 +23,20 @@ export function TrustedByCard() {
       />
 
       <div className="relative z-10 flex flex-col gap-4 md:gap-6">
-        <span className="text-[#F5F5F580] text-xs md:text-sm font-medium">
-          Trusted By
-        </span>
+        <span className={CONTACT_LABEL_CLASS}>Trusted By</span>
 
         <div className="flex items-center flex-wrap">
-          {[...Array(6)].map((_, index) => (
+          {trustedAvatarItems.map((item) => (
             <div
-              key={index}
-              className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-zinc-700 bg-zinc-800 -ml-2 first:ml-0"
+              key={item}
+              className="relative w-8 h-8 md:w-10 md:h-10 rounded-full border border-zinc-700 bg-zinc-800 -ml-2 first:ml-0"
             >
-              <img
+              <Image
                 src="/assets/hero/user.png"
-                alt={`user ${index + 1}`}
-                className="w-full h-full object-cover rounded-full"
+                alt={item}
+                fill
+                sizes="40px"
+                className="object-cover rounded-full"
               />
             </div>
           ))}
