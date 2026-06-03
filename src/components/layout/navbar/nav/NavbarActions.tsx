@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
+import { LanguageSelector } from "./LanguageSelector";
 import { UserDropdown } from "./UserDropdown";
 import type { NavbarActionsProps } from "@/types/component-props";
 
@@ -11,12 +13,17 @@ export function NavbarActions({
   dropdownRef,
   onToggleDropdown,
   onCloseDropdown,
-  onLogout,
+  onSignOut,
 }: NavbarActionsProps) {
   const router = useRouter();
+  const { t } = useAppTranslation();
 
   return (
     <div className="flex items-center gap-3 md:gap-4 relative">
+      <div className="hidden md:block">
+        <LanguageSelector />
+      </div>
+
       {user && (
         <Button
           variant="navOutline"
@@ -34,11 +41,15 @@ export function NavbarActions({
           dropdownRef={dropdownRef}
           onToggle={onToggleDropdown}
           onClose={onCloseDropdown}
-          onLogout={onLogout}
+          onSignOut={onSignOut}
         />
       ) : (
-        <Button asChild variant="navDark" className="hidden md:inline-flex px-5 py-2 text-[15px]">
-          <Link href="/login">Get Started</Link>
+        <Button
+          asChild
+          variant="navDark"
+          className="hidden md:inline-flex px-5 py-2 text-[15px]"
+        >
+          <Link href="/login">{t("nav.getStarted")}</Link>
         </Button>
       )}
     </div>
