@@ -12,7 +12,9 @@
     "error": "Something went wrong.",
     "success": "Success",
     "tryAgain": "Try again",
-    "noResults": "No results found."
+    "noResults": "No results found.",
+    "backendError": "Backend error",
+    "noDataFound": "No data found"
   },
   "nav": {
     "categories": "Categories",
@@ -20,6 +22,7 @@
     "catalog": "Catalog",
     "contact": "Contact",
     "myBookings": "My Bookings",
+    "cart": "Cart",
     "dashboard": "Dashboard",
     "getStarted": "Get Started",
     "logout": "Logout",
@@ -110,6 +113,85 @@
     "settingsSaved": "Settings saved",
     "invalidSettings": "Please select valid settings"
   },
+  "categoryFlow": {
+    "emptyTitle": "Category unavailable",
+    "emptyDescription": "This category is not available yet. Please choose another service category.",
+    "backHome": "Go back home",
+    "selectServiceDescription": "Select a service below to continue your design path.",
+    "categoryLabel": "Selected category",
+    "fallbackDescription": "Explore available ReactIf services in this category and choose the option that best fits your project.",
+    "subcategoriesLabel": "Dynamic subcategories",
+    "subcategoriesTitle": "Choose a subcategory",
+    "subcategoryLabel": "Subcategory",
+    "subcategoryCount": "{count} subcategories available",
+    "subcategoryFallbackDescription": "Open this subcategory to view the available services.",
+    "chooseSubcategoryTitle": "Select a subcategory to continue",
+    "chooseSubcategoryDescription": "This category is organized by subcategory. Choose one above to view the services published for that area.",
+    "servicesLabel": "Dynamic services",
+    "servicesTitle": "Choose a service",
+    "serviceCount": "{count} services available",
+    "noServicesTitle": "No services available yet",
+    "noServicesDescription": "This category is active, but the backend has not published services for it yet. Please check another category or contact support.",
+    "serviceFallbackDescription": "Service details will be confirmed during booking.",
+    "priceLabel": "Price",
+    "priceUnavailable": "Price on request",
+    "viewDetails": "View Details",
+    "bookNow": "Book Now",
+    "loadingServices": "Loading category services...",
+    "errorTitle": "Unable to load category",
+    "retry": "Retry"
+  },
+  "serviceActions": {
+    "bookNow": "Book Now",
+    "bookNowFor": "Book {title} now"
+  },
+  "serviceDetail": {
+    "loading": "Loading service details...",
+    "errorTitle": "Service unavailable",
+    "errorDescription": "We could not load this service from the API. Please try again or choose another service.",
+    "eyebrow": "Service details",
+    "descriptionFallback": "Service details will be confirmed during booking.",
+    "price": "Price",
+    "priceOnRequest": "Price on request",
+    "delivery": "Delivery",
+    "deliveryOnRequest": "Timeline on request",
+    "bookNow": "Book Now",
+    "requestQuote": "Request Quote",
+    "summaryTitle": "Service summary",
+    "category": "Category",
+    "galleryTitle": "Gallery"
+  },
+  "bookingFlow": {
+    "requiredFieldsError": "Please fill all required fields.",
+    "selectServiceError": "Please select a service.",
+    "loginRequired": "Please log in to continue booking.",
+    "saveDraftError": "Failed to save booking draft.",
+    "selectServiceDescription": "Please select a service to configure your request.",
+    "noServicesAvailable": "No services are available under this category.",
+    "noAdditionalConfiguration": "This service does not require additional configuration.",
+    "configurationSummary": "Configuration Summary",
+    "noSelection": "No selection",
+    "servicePrice": "Service price",
+    "requiredDetails": "Required details",
+    "fieldCount": "{count} fields",
+    "creatingBooking": "Creating Booking...",
+    "addingToCart": "Adding to Cart...",
+    "addToCart": "Add to Cart",
+    "addedToCart": "Added to cart.",
+    "bookNow": "Book Now",
+    "chooseService": "Choose a service",
+    "optionCount": "{count} options available for this category",
+    "optionLabel": "Option {number}"
+  },
+  "designPath": {
+    "title": "Choose Your Design Path",
+    "close": "Close design path modal",
+    "haveDesignTitle": "I have a design",
+    "haveDesignDescription": "Upload your print-ready files. Perfect for designers and agencies who already have their artwork prepared.",
+    "needDesignerTitle": "I need a designer",
+    "needDesignerDescription": "Let our expert team create a custom design for you. We'll work with you to bring your vision to life.",
+    "missingCategoryError": "Please choose a category before selecting a designer path."
+  },
   "home": {
     "hero": {
       "badge": "AUTOMOTIVE EXPERTS",
@@ -189,6 +271,9 @@
     "searchPlaceholder": "Search products, wraps, or apparel...",
     "filters": {
       "button": "Filters",
+      "priceFilter": "Price filter",
+      "priceLowHigh": "Price: low to high",
+      "priceHighLow": "Price: high to low",
       "allProducts": "All Products",
       "vehicleWraps": "Vehicle Wraps",
       "signage": "Signage",
@@ -199,6 +284,17 @@
       "ourServices": "Our Services",
       "popularServices": "Popular Services"
     },
+    "categoryExplorer": {
+      "eyebrow": "Dynamic categories",
+      "title": "Browse by category",
+      "description": "Explore service categories and subcategories published from the ReactIf catalog.",
+      "category": "Category",
+      "fallbackDescription": "Open this category to view available options and services.",
+      "noSubcategories": "Services are listed directly in this category.",
+      "viewSubcategories": "View subcategories",
+      "viewServices": "View services",
+      "openCategory": "Open {name}"
+    },
     "categories": {
       "commercial": "COMMERCIAL",
       "automotive": "AUTOMOTIVE",
@@ -207,6 +303,17 @@
     "viewDetails": "View Details",
     "viewDetailsFor": "View details for {title}",
     "addToCart": "Add {title} to cart",
+    "bookNow": "Book Now",
+    "priceLabel": "Price",
+    "priceOnRequest": "Price on request",
+    "serviceFallbackDescription": "Service details will be confirmed during booking.",
+    "uncategorized": "Uncategorized",
+    "loading": "Loading catalog services...",
+    "errorTitle": "Unable to load catalog",
+    "errorDescription": "The services API is unavailable right now. Please try again.",
+    "retry": "Retry",
+    "emptyTitle": "No services found",
+    "emptyDescription": "Try another category or search term. New services will appear here as soon as they are published.",
     "items": {
       "suvBranding": {
         "title": "SUV Branding",
@@ -241,6 +348,38 @@
         "description": "Complete aerodynamic fairing coverage in premium matte, gloss, or satin finishes."
       }
     }
+  },
+  "automotive": {
+    "eyebrow": "Automotive",
+    "title": "Automotive visual communication built for the road.",
+    "description": "Explore vehicle wraps, protective films, tinting, fleet branding, and custom finishes designed to make every vehicle look sharp and work harder for your brand.",
+    "exploreCategory": "Explore automotive",
+    "viewCatalog": "View full catalog",
+    "imageAlt": "Reactif automotive vehicle wrap service",
+    "heroCardLabel": "Vehicle-first finishes",
+    "heroCardDescription": "From single cars to branded fleets, Reactif helps plan, produce, and install automotive visuals with clean detail and durable materials.",
+    "highlights": {
+      "wraps": {
+        "title": "Wraps and decoration",
+        "description": "Full or partial wraps, custom color accents, and visual upgrades for personal and commercial vehicles."
+      },
+      "protection": {
+        "title": "Protection and tinting",
+        "description": "Paint protection, window tinting, and film solutions selected for daily use and long-lasting presentation."
+      },
+      "branding": {
+        "title": "Fleet branding",
+        "description": "Consistent layouts for vans, cars, and commercial vehicles that keep your brand visible on every route."
+      }
+    },
+    "servicesEyebrow": "Bookable services",
+    "servicesTitle": "Automotive services",
+    "allAutomotive": "All automotive options",
+    "loading": "Loading automotive services...",
+    "errorTitle": "Unable to load automotive services",
+    "errorDescription": "Please retry or browse the full catalog while services refresh.",
+    "emptyTitle": "No automotive services found",
+    "emptyDescription": "Automotive services will appear here once they are available in the catalog."
   },
   "helpCenter": {
     "supportCenter": "Support Center",
@@ -284,6 +423,15 @@
     "faq": {
       "title": "Featured FAQs",
       "description": "Find quick answers to our most common inquiries.",
+      "loadingTitle": "Loading FAQs",
+      "loadingDescription": "We are fetching the latest support answers.",
+      "errorTitle": "Unable to load FAQs",
+      "errorDescription": "The support FAQ service is unavailable right now. Please try again.",
+      "emptyTitle": "No FAQs available yet",
+      "emptyDescription": "Support FAQs will appear here once the backend returns published answers.",
+      "noResultsTitle": "No matching FAQs",
+      "noResultsDescription": "Try another keyword or choose a popular topic.",
+      "clearSearch": "Clear search",
       "turnaroundTime": {
         "question": "What is the typical turnaround time for a full vehicle wrap?",
         "answer": "Turnaround time typically ranges from 3–7 business days depending on design complexity, printing, and installation scheduling."
@@ -448,6 +596,7 @@
     "trackingLoading": "Loading tracking...",
     "trackingUnavailable": "Tracking data is unavailable.",
     "currentStatus": "Current Status",
+    "backendStatus": "Booking Status",
     "estimatedDelivery": "Estimated Delivery",
     "origin": "Origin",
     "pendingConfirmation": "Pending confirmation",
@@ -460,10 +609,43 @@
     "bookingService": "Booking service",
     "viewOrderDetails": "View Order Details",
     "contactSupport": "Contact Support",
+    "trackingStages": {
+      "pending": "Pending",
+      "inProduction": "In Production",
+      "qualityCheck": "Quality Check",
+      "shipped": "Shipped",
+      "delivered": "Delivered"
+    },
     "paymentTitle": "Complete Your Payment",
     "paymentSubtitle": "Get help from our support team",
     "bookingPayment": "Booking payment",
     "bookingFor": "Booking for {serviceName}"
+  },
+  "cart": {
+    "eyebrow": "Booking cart",
+    "title": "Your Cart",
+    "description": "Review your selected booking services before continuing to address and payment.",
+    "items": "Items",
+    "itemCount": "{count} item(s)",
+    "emptyTitle": "Your cart is empty",
+    "emptyDescription": "Configure a service and add it here before continuing to address and payment.",
+    "browseServices": "Browse Services",
+    "localNotice": "Your selected services are ready for checkout. Confirm the details below before continuing.",
+    "readyForCheckout": "Ready for checkout",
+    "service": "Service",
+    "descriptionFallback": "Service details will be confirmed during checkout.",
+    "estimatedTotal": "Estimated total",
+    "category": "Category",
+    "configuration": "Configuration",
+    "fieldCount": "{count} field(s)",
+    "updated": "Updated",
+    "justNow": "Just now",
+    "notSelected": "Not selected",
+    "remove": "Remove",
+    "removed": "Removed from cart.",
+    "clearCart": "Clear cart",
+    "cleared": "Cart cleared.",
+    "continueCheckout": "Continue Checkout"
   },
   "payment": {
     "orderSummary": "Order Summary",
@@ -483,12 +665,23 @@
     "details": "Payment Details",
     "pendingMethod": "Payment Pending",
     "loading": "Loading...",
+    "loadingPaymentMethods": "Checking available payment methods.",
+    "processing": "Processing...",
     "draftMissing": "Booking draft is missing. Please start the booking again.",
     "addMissingLocation": "Please add {fields} before payment.",
     "loginBeforePayment": "Please login before completing payment.",
     "couldNotComplete": "Payment could not be completed",
+    "onlineCardNotConfigured": "Online card payment is not configured yet.",
+    "onlineCardNotConfiguredDescription": "ReactIf could not find an active card payment method.",
+    "onlineCardConfigured": "Online card payment is configured.",
+    "onlineCardConfiguredDescription": "{gateway} is available in {mode}. Enter card details to process the payment.",
+    "testMode": "test mode",
+    "liveMode": "live mode",
+    "paymentNotStartedNotice": "Payment is saved only after Stripe confirms the card payment.",
+    "cardDetails": "Card details",
+    "stripeCouldNotLoad": "Stripe could not be loaded. Please try again.",
     "payAmount": "Pay {amount}",
-    "confirmationNotice": "Payment is confirmed before booking submission. Card fields are not sent.",
+    "confirmationNotice": "No payment is created or confirmed until Stripe confirms a real transaction.",
     "nameOnCard": "Name on Card",
     "cardNumber": "Card Number",
     "expiryDate": "Expiry Date",
@@ -524,6 +717,9 @@
     "noActivity": "No wallet activity found.",
     "activity": "Wallet Activity",
     "validAmount": "Please enter a valid top-up amount.",
+    "paymentNotice": "Wallet balance is updated only after the card payment is confirmed.",
+    "loginBeforeTopUp": "Please login before topping up your wallet.",
+    "topUpTitle": "Wallet top-up",
     "entry": "Wallet entry #{id}",
     "credit": "credit",
     "active": "active"
@@ -583,10 +779,16 @@
     "contactUs": "Contact Us",
     "support": "Support",
     "helpCenter": "Help Center",
+    "faq": "FAQ",
     "contactSupport": "Contact Support",
     "termsOfService": "Terms of Service",
     "privacyPolicy": "Privacy Policy",
-    "followUs": "Follow us"
+    "followUs": "Follow us",
+    "socialX": "Open ReactIf on X",
+    "socialFacebook": "Open ReactIf on Facebook",
+    "socialInstagram": "Open ReactIf on Instagram",
+    "socialLinkedIn": "Open ReactIf on LinkedIn",
+    "socialYouTube": "Open ReactIf on YouTube"
   },
   "validation": {
     "emailRequired": "Email is required.",
@@ -614,9 +816,65 @@
     "fullName": "Full Name",
     "serviceInterestedIn": "Service Interested In",
     "selectService": "Select a service",
+    "generalInquiry": "General inquiry",
     "message": "Message",
     "sendMessage": "Send Message",
+    "sending": "Sending...",
+    "submitSuccess": "Your message was sent to ReactIf support.",
+    "submitError": "We could not send your message. Please try again.",
+    "signInRequired": "Please sign in before sending a support request.",
     "trustedBy": "Trusted By"
+  },
+  "supportRequests": {
+    "eyebrow": "Support history",
+    "title": "Saved support requests",
+    "description": "Review previous messages sent to ReactIf support and track their current status.",
+    "total": "Requests",
+    "open": "Open",
+    "search": "Search support requests",
+    "searchPlaceholder": "Search request, service, email, or status",
+    "loadError": "We could not load your support requests.",
+    "signInRequired": "Please sign in to view your saved support requests.",
+    "retry": "Try again",
+    "emptyTitle": "No support requests yet",
+    "emptyDescription": "Submitted contact and support messages will appear here after the backend saves them.",
+    "noResultsTitle": "No matching requests",
+    "noResultsDescription": "Try a different service, status, email, or message keyword.",
+    "requestFallback": "Support request",
+    "initialsFallback": "SR",
+    "requestId": "Request #{id}",
+    "dateFallback": "Date unavailable",
+    "statusFallback": "Open",
+    "messageFallback": "No message preview available"
+  },
+  "designers": {
+    "portfolio": "Portfolio",
+    "viewPortfolio": "View Portfolio",
+    "select": "Select",
+    "selectDesigner": "Select Designer",
+    "chooseServiceFirst": "Choose service first",
+    "available": "Available",
+    "unavailable": "Unavailable",
+    "online": "Online",
+    "offline": "Offline",
+    "unnamed": "Unnamed Designer",
+    "locationFallback": "Location not specified",
+    "availableDesigner": "Available Designer",
+    "currentlyUnavailable": "Currently Unavailable",
+    "professionalDesigner": "Professional Designer",
+    "professional": "Professional",
+    "contactForPrice": "Contact for price",
+    "backToDesigners": "Back to designers",
+    "loadingProfile": "Loading designer profile...",
+    "errorTitle": "Designer profile unavailable",
+    "notFoundTitle": "Designer not found",
+    "notFoundDescription": "This designer is not available in the current customer designer list.",
+    "profileEyebrow": "Designer Portfolio",
+    "profileDescription": "Review this designer profile before continuing your booking flow with the selected service and category context.",
+    "rating": "Rating",
+    "location": "Location",
+    "status": "Status",
+    "contactSupport": "Contact Support"
   },
   "about": {
     "heroTitleLine1": "DRIVING EXCELLENCE IN VISUAL",
@@ -651,6 +909,133 @@
           "description": "State-of-the-art printing technology ensuring color accuracy and durability that stands up to the rigors of the road."
         }
       }
+    }
+  },
+  "staticPages": {
+    "blogs": {
+      "eyebrow": "Insights",
+      "title": "ReactIf stories and print guidance",
+      "description": "Our blog space is being prepared for project notes, material guides, installation advice, and visual communication ideas from the ReactIf team.",
+      "cta": "Talk to our team",
+      "readArticle": "Read article",
+      "cards": {
+        "first": {
+          "title": "Project notes",
+          "description": "Upcoming articles will highlight real-world wraps, signage work, and production decisions behind customer projects."
+        },
+        "second": {
+          "title": "Material guidance",
+          "description": "We will share practical care tips for vinyl, signage, apparel prints, and other finished surfaces."
+        },
+        "third": {
+          "title": "Design thinking",
+          "description": "Expect short reads on brand visibility, fleet identity, layout choices, and high-impact automotive communication."
+        }
+      },
+      "articles": {
+        "first": {
+          "category": "Vehicle wraps",
+          "readTime": "4 min read",
+          "title": "How a branded wrap turns every customer trip into a moving campaign",
+          "description": "A practical look at layout hierarchy, readable messaging, and material choices for fleet graphics that stay sharp on the road.",
+          "body": {
+            "first": "A branded vehicle wrap works best when it is planned like outdoor media, not just decoration. The strongest layouts keep the company name, service category, and contact path readable within a few seconds while the vehicle is moving.",
+            "second": "Color contrast, clear hierarchy, and restrained copy matter more than filling every panel. On fleets, consistency is even more important: the same placement rules across cars and vans help customers recognize the brand quickly.",
+            "third": "Material choice completes the campaign. Durable vinyl, careful edge treatment, and the right laminate help the design stay crisp through daily routes, weather, washing, and repeat exposure."
+          },
+          "takeaways": {
+            "first": "Prioritize brand name, service, and contact details before secondary graphics.",
+            "second": "Design for moving traffic with high contrast and short readable messages.",
+            "third": "Match material and finish to the vehicle’s usage, route, and expected lifespan."
+          }
+        },
+        "second": {
+          "category": "Care guide",
+          "readTime": "3 min read",
+          "title": "Simple vinyl care habits that protect color, finish, and edges",
+          "description": "Use gentle cleaning, smart parking, and regular edge checks to help wraps and signage surfaces keep their premium finish longer.",
+          "body": {
+            "first": "Vinyl finishes last longer when cleaning stays gentle and consistent. Rinse loose dust first, wash with a mild solution, and avoid harsh brushes that can scratch gloss, satin, or matte finishes.",
+            "second": "Heat and sun exposure can affect edges over time, especially around curves, mirrors, and recessed areas. Parking in shade when possible and checking edges after washes helps catch small issues before they grow.",
+            "third": "Pressure washing needs extra care. Keep distance from the surface, avoid directing water at seams, and give newly installed vinyl time to settle before aggressive cleaning."
+          },
+          "takeaways": {
+            "first": "Use mild cleaning products and soft cloths for routine maintenance.",
+            "second": "Inspect edges and seams regularly, especially after heat or pressure washing.",
+            "third": "Protect matte and satin finishes from abrasive tools and harsh chemicals."
+          }
+        },
+        "third": {
+          "category": "Signage",
+          "readTime": "5 min read",
+          "title": "Choosing signage that works from storefront to event display",
+          "description": "Compare durability, viewing distance, lighting, and installation context before selecting the right sign system for your brand.",
+          "body": {
+            "first": "Good signage starts with the environment. A storefront sign, window graphic, indoor display, and event stand each have different viewing distances, lighting conditions, and installation constraints.",
+            "second": "Material decisions should follow that context. Outdoor signs need durability and weather resistance, while event displays often need lighter construction, easy transport, and fast setup.",
+            "third": "The most reliable results come from aligning message size, contrast, finish, and mounting method before production begins. That planning keeps the final sign clear, practical, and brand-consistent."
+          },
+          "takeaways": {
+            "first": "Choose materials based on indoor, outdoor, temporary, or long-term use.",
+            "second": "Set text size and contrast around real viewing distance and lighting.",
+            "third": "Plan installation and transport needs before approving production."
+          }
+        }
+      },
+      "detail": {
+        "backToBlogs": "Back to blogs",
+        "author": "ReactIf editorial team",
+        "takeaways": "Key takeaways",
+        "nextStep": "Next step",
+        "ctaTitle": "Ready to plan your own visual project?",
+        "ctaDescription": "Share the vehicle, signage, or print objective and the ReactIf team can help shape the right material and production path.",
+        "relatedTitle": "More from the blog"
+      }
+    },
+    "portfolio": {
+      "eyebrow": "Selected work",
+      "title": "Portfolio showcase coming online",
+      "description": "We are preparing a customer-facing portfolio for vehicle wraps, signage, apparel, and visual advertising projects.",
+      "cta": "Start a project",
+      "cards": {
+        "first": {
+          "title": "Vehicle transformations",
+          "description": "Finished wraps and advertising graphics will be presented with clean project context and service details."
+        },
+        "second": {
+          "title": "Signage systems",
+          "description": "Future entries will show branded signs, window graphics, displays, and installation outcomes."
+        },
+        "third": {
+          "title": "Brand applications",
+          "description": "Apparel, accessories, and campaign assets will be organized for easy customer review."
+        }
+      }
+    },
+    "support": {
+      "eyebrow": "Customer support",
+      "title": "Support for orders, designs, and services",
+      "description": "Reach the ReactIf team for order questions, project guidance, service availability, and account support.",
+      "cta": "Send a message",
+      "cards": {
+        "first": {
+          "title": "Order assistance",
+          "description": "Ask about booking status, payment steps, tracking details, or changes to a submitted request."
+        },
+        "second": {
+          "title": "Design help",
+          "description": "Get guidance on files, service choices, materials, and preparing your project before production."
+        },
+        "third": {
+          "title": "Service questions",
+          "description": "Confirm availability for automotive, signage, apparel, accessory, and advertising services."
+        }
+      }
+    },
+    "faq": {
+      "eyebrow": "Frequently asked questions",
+      "title": "Answers from ReactIf support",
+      "description": "Browse current FAQ content from our support system. If the backend has FAQ entries, they are shown here automatically."
     }
   },
   "legal": {

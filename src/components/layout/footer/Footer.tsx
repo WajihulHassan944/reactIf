@@ -5,16 +5,37 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import { Container } from "@/components/common/Container";
 import { Button } from "@/components/ui/button";
-import { Twitter, Facebook, Instagram, Youtube } from "lucide-react";
+import { Twitter, Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useCurrentUser } from "@/hooks/useAuth";
+import { useCategories } from "@/hooks/useCategories";
+import {
+  buildCategoryRouteFromCategory,
+  buildCategoryRouteFromNavigationSlug,
+  findCategoryByNavigationSlug,
+  footerCategoryNavigationItems,
+} from "@/lib/category-routes";
+import { getStartedRoute } from "@/lib/get-started-routes";
 
 export default function Footer() {
   const router = useRouter();
   const { t } = useAppTranslation();
-  const { data: user } = useCurrentUser();
+  const { data: user, isLoading: authLoading } = useCurrentUser();
+  const { categories } = useCategories({ per_page: 100 });
+  const serviceCategoryLinks = footerCategoryNavigationItems.map(
+    ({ slug, labelKey }) => {
+      const category = findCategoryByNavigationSlug(categories, slug);
+
+      return {
+        label: t(labelKey),
+        href: category
+          ? buildCategoryRouteFromCategory(category)
+          : buildCategoryRouteFromNavigationSlug(slug),
+      };
+    },
+  );
 
   return (
     <footer className="relative text-white overflow-hidden">
@@ -37,23 +58,27 @@ export default function Footer() {
               {t("footer.description")}
             </p>
 
-            <Button asChild variant="whiteGlow" className="h-11 px-5 py-2.5 rounded-[100px] outline-1 outline-offset-[-1px] outline-white text-[14px] font-hk">
-              <Link href="/login">{t("footer.getStarted")}</Link>
-            </Button>
+            {authLoading ? (
+              <Button
+                type="button"
+                variant="whiteGlow"
+                disabled
+                className="h-11 px-5 py-2.5 rounded-[100px] outline-1 outline-offset-[-1px] outline-white text-[14px] font-hk"
+              >
+                {t("footer.getStarted")}
+              </Button>
+            ) : (
+              <Button asChild variant="whiteGlow" className="h-11 px-5 py-2.5 rounded-[100px] outline-1 outline-offset-[-1px] outline-white text-[14px] font-hk">
+                <Link href={getStartedRoute(Boolean(user))}>
+                  {user ? t("nav.myBookings") : t("footer.getStarted")}
+                </Link>
+              </Button>
+            )}
           </div>
           <div className="grid grid-cols-3 gap-10 text-sm">
             <FooterColumn
               title={t("footer.services")}
-              links={[
-                { label: t("footer.automotive"), href: "/services/automotive" },
-                {
-                  label: t("footer.visualAdvertising"),
-                  href: "/services/visual-advertising",
-                },
-                { label: t("footer.signaletique"), href: "/services/signaletique" },
-                { label: t("footer.apparel"), href: "/services/apparel" },
-                { label: t("footer.accessories"), href: "/services/accessories" },
-              ]}
+              links={serviceCategoryLinks}
             />
 
             <FooterColumn
@@ -70,7 +95,7 @@ export default function Footer() {
               title={t("footer.support")}
               links={[
                 { label: t("footer.helpCenter"), href: "/help-center" },
-                { label: "FAQ", href: "/faq" },
+                { label: t("footer.faq"), href: "/faq" },
                 { label: t("footer.contactSupport"), href: "/support" },
                 { label: t("footer.termsOfService"), href: "/terms" },
                 { label: t("footer.privacyPolicy"), href: "/privacy-policy" },
@@ -83,21 +108,36 @@ export default function Footer() {
           <div className="flex items-center gap-5">
             <span className="text-sm text-white/60">{t("footer.followUs")}</span>
 
-            <SocialIcon>
+            <SocialIcon href="https://x.com/" ariaLabel={t("footer.socialX")}>
               <Twitter size={16} />
             </SocialIcon>
-            <SocialIcon>
+            <SocialIcon
+              href="https://www.facebook.com/"
+              ariaLabel={t("footer.socialFacebook")}
+            >
               <Facebook size={16} />
             </SocialIcon>
-            <SocialIcon>
+            <SocialIcon
+              href="https://www.instagram.com/"
+              ariaLabel={t("footer.socialInstagram")}
+            >
               <Instagram size={16} />
             </SocialIcon>
-            <SocialIcon>
+            <SocialIcon
+              href="https://www.linkedin.com/"
+              ariaLabel={t("footer.socialLinkedIn")}
+            >
+              <Linkedin size={16} />
+            </SocialIcon>
+            <SocialIcon
+              href="https://www.youtube.com/"
+              ariaLabel={t("footer.socialYouTube")}
+            >
               <Youtube size={16} />
             </SocialIcon>
           </div>
           <div className="flex gap-4">
-            {!user && (
+            {!authLoading && !user && (
               <Button
                 onClick={() => router.push("/login")}
                 variant="outline"
@@ -145,10 +185,24 @@ function FooterColumn({
   );
 }
 
-function SocialIcon({ children }: { children: ReactNode }) {
+function SocialIcon({
+  href,
+  ariaLabel,
+  children,
+}: {
+  href: string;
+  ariaLabel: string;
+  children: ReactNode;
+}) {
   return (
-    <div className="w-8 h-8 flex items-center justify-center rounded-full border border-white/20 hover:bg-white/10 transition cursor-pointer">
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={ariaLabel}
+      className="w-8 h-8 flex items-center justify-center rounded-full border border-white/20 hover:bg-white/10 transition cursor-pointer"
+    >
       {children}
-    </div>
+    </a>
   );
 }

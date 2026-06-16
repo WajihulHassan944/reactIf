@@ -2,6 +2,7 @@ export type Subcategory = {
   id: number;
   name: string;
   description: string;
+  parent_id?: number | null;
   category_image: string;
   status: number;
 };
@@ -10,6 +11,8 @@ export type Category = {
   id: number;
   name: string;
   description?: string;
+  category_image?: string;
+  parent_id?: number | null;
   status: number;
   subcategories?: Subcategory[];
 };
@@ -37,6 +40,10 @@ export type Service = {
   category_id: number;
   sub_category_id: number;
   service_image: string;
+  image_gallery?: string[];
   price: number;
+  status?: number;
+  delivery_time?: string | null;
+  lead_time?: string | null;
   fields: ServiceField[];
 };

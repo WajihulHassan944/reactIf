@@ -12,7 +12,9 @@
     "error": "Une erreur est survenue.",
     "success": "Succès",
     "tryAgain": "Réessayer",
-    "noResults": "Aucun résultat trouvé."
+    "noResults": "Aucun résultat trouvé.",
+    "backendError": "Erreur backend",
+    "noDataFound": "Aucune donnée trouvée"
   },
   "nav": {
     "categories": "Catégories",
@@ -20,6 +22,7 @@
     "catalog": "Catalogue",
     "contact": "Contact",
     "myBookings": "Mes réservations",
+    "cart": "Panier",
     "dashboard": "Tableau de bord",
     "getStarted": "Commencer",
     "logout": "Déconnexion",
@@ -110,6 +113,85 @@
     "settingsSaved": "Paramètres enregistrés",
     "invalidSettings": "Veuillez sélectionner des paramètres valides"
   },
+  "categoryFlow": {
+    "emptyTitle": "Catégorie indisponible",
+    "emptyDescription": "Cette catégorie n’est pas encore disponible. Veuillez choisir une autre catégorie de service.",
+    "backHome": "Retour à l’accueil",
+    "selectServiceDescription": "Sélectionnez un service ci-dessous pour continuer votre parcours de design.",
+    "categoryLabel": "Catégorie sélectionnée",
+    "fallbackDescription": "Explorez les services ReactIf disponibles dans cette catégorie et choisissez l’option adaptée à votre projet.",
+    "subcategoriesLabel": "Sous-catégories dynamiques",
+    "subcategoriesTitle": "Choisissez une sous-catégorie",
+    "subcategoryLabel": "Sous-catégorie",
+    "subcategoryCount": "{count} sous-catégories disponibles",
+    "subcategoryFallbackDescription": "Ouvrez cette sous-catégorie pour voir les services disponibles.",
+    "chooseSubcategoryTitle": "Sélectionnez une sous-catégorie pour continuer",
+    "chooseSubcategoryDescription": "Cette catégorie est organisée par sous-catégorie. Choisissez-en une ci-dessus pour voir les services publiés.",
+    "servicesLabel": "Services dynamiques",
+    "servicesTitle": "Choisissez un service",
+    "serviceCount": "{count} services disponibles",
+    "noServicesTitle": "Aucun service disponible pour le moment",
+    "noServicesDescription": "Cette catégorie est active, mais le backend n’a pas encore publié de services pour celle-ci. Veuillez choisir une autre catégorie ou contacter le support.",
+    "serviceFallbackDescription": "Les détails du service seront confirmés pendant la réservation.",
+    "priceLabel": "Prix",
+    "priceUnavailable": "Prix sur demande",
+    "viewDetails": "Voir les détails",
+    "bookNow": "Réserver",
+    "loadingServices": "Chargement des services de la catégorie...",
+    "errorTitle": "Impossible de charger la catégorie",
+    "retry": "Réessayer"
+  },
+  "serviceActions": {
+    "bookNow": "Réserver",
+    "bookNowFor": "Réserver {title}"
+  },
+  "serviceDetail": {
+    "loading": "Chargement des détails du service...",
+    "errorTitle": "Service indisponible",
+    "errorDescription": "Nous n’avons pas pu charger ce service depuis l’API. Veuillez réessayer ou choisir un autre service.",
+    "eyebrow": "Détails du service",
+    "descriptionFallback": "Les détails du service seront confirmés pendant la réservation.",
+    "price": "Prix",
+    "priceOnRequest": "Prix sur demande",
+    "delivery": "Livraison",
+    "deliveryOnRequest": "Délai sur demande",
+    "bookNow": "Réserver",
+    "requestQuote": "Demander un devis",
+    "summaryTitle": "Résumé du service",
+    "category": "Catégorie",
+    "galleryTitle": "Galerie"
+  },
+  "bookingFlow": {
+    "requiredFieldsError": "Veuillez remplir tous les champs obligatoires.",
+    "selectServiceError": "Veuillez sélectionner un service.",
+    "loginRequired": "Veuillez vous connecter pour continuer la réservation.",
+    "saveDraftError": "Impossible d’enregistrer le brouillon de réservation.",
+    "selectServiceDescription": "Veuillez sélectionner un service pour configurer votre demande.",
+    "noServicesAvailable": "Aucun service n’est disponible dans cette catégorie.",
+    "noAdditionalConfiguration": "Ce service ne nécessite aucune configuration supplémentaire.",
+    "configurationSummary": "Résumé de configuration",
+    "noSelection": "Aucune sélection",
+    "servicePrice": "Prix du service",
+    "requiredDetails": "Détails requis",
+    "fieldCount": "{count} champs",
+    "creatingBooking": "Création de la réservation...",
+    "addingToCart": "Ajout au panier...",
+    "addToCart": "Ajouter au panier",
+    "addedToCart": "Ajouté au panier.",
+    "bookNow": "Réserver",
+    "chooseService": "Choisir un service",
+    "optionCount": "{count} options disponibles pour cette catégorie",
+    "optionLabel": "Option {number}"
+  },
+  "designPath": {
+    "title": "Choisissez votre parcours design",
+    "close": "Fermer la fenêtre du parcours design",
+    "haveDesignTitle": "J’ai déjà un design",
+    "haveDesignDescription": "Importez vos fichiers prêts à imprimer. Idéal pour les designers et agences qui disposent déjà de leurs visuels.",
+    "needDesignerTitle": "J’ai besoin d’un designer",
+    "needDesignerDescription": "Laissez notre équipe experte créer un design sur mesure. Nous vous accompagnons pour donner vie à votre vision.",
+    "missingCategoryError": "Veuillez choisir une catégorie avant de sélectionner un parcours designer."
+  },
   "home": {
     "hero": {
       "badge": "EXPERTS AUTOMOBILES",
@@ -189,6 +271,9 @@
     "searchPlaceholder": "Rechercher des produits, habillages ou vêtements...",
     "filters": {
       "button": "Filtres",
+      "priceFilter": "Filtre prix",
+      "priceLowHigh": "Prix : croissant",
+      "priceHighLow": "Prix : décroissant",
       "allProducts": "Tous les produits",
       "vehicleWraps": "Habillages véhicule",
       "signage": "Signalétique",
@@ -199,6 +284,17 @@
       "ourServices": "Nos services",
       "popularServices": "Services populaires"
     },
+    "categoryExplorer": {
+      "eyebrow": "Catégories dynamiques",
+      "title": "Parcourir par catégorie",
+      "description": "Explorez les catégories et sous-catégories publiées depuis le catalogue ReactIf.",
+      "category": "Catégorie",
+      "fallbackDescription": "Ouvrez cette catégorie pour voir les options et services disponibles.",
+      "noSubcategories": "Les services sont listés directement dans cette catégorie.",
+      "viewSubcategories": "Voir les sous-catégories",
+      "viewServices": "Voir les services",
+      "openCategory": "Ouvrir {name}"
+    },
     "categories": {
       "commercial": "COMMERCIAL",
       "automotive": "AUTOMOBILE",
@@ -207,6 +303,17 @@
     "viewDetails": "Voir les détails",
     "viewDetailsFor": "Voir les détails de {title}",
     "addToCart": "Ajouter {title} au panier",
+    "bookNow": "Réserver",
+    "priceLabel": "Prix",
+    "priceOnRequest": "Prix sur demande",
+    "serviceFallbackDescription": "Les détails du service seront confirmés pendant la réservation.",
+    "uncategorized": "Non catégorisé",
+    "loading": "Chargement des services du catalogue...",
+    "errorTitle": "Impossible de charger le catalogue",
+    "errorDescription": "L’API des services est indisponible pour le moment. Veuillez réessayer.",
+    "retry": "Réessayer",
+    "emptyTitle": "Aucun service trouvé",
+    "emptyDescription": "Essayez une autre catégorie ou un autre terme de recherche. Les nouveaux services apparaîtront ici dès leur publication.",
     "items": {
       "suvBranding": {
         "title": "Branding SUV",
@@ -241,6 +348,38 @@
         "description": "Couverture complète des carénages aérodynamiques en finitions premium mates, brillantes ou satinées."
       }
     }
+  },
+  "automotive": {
+    "eyebrow": "Automobile",
+    "title": "Communication visuelle automobile prête pour la route.",
+    "description": "Découvrez les habillages de véhicules, films de protection, vitres teintées, branding de flotte et finitions personnalisées pour valoriser chaque véhicule et renforcer votre marque.",
+    "exploreCategory": "Explorer l’automobile",
+    "viewCatalog": "Voir tout le catalogue",
+    "imageAlt": "Service d’habillage automobile Reactif",
+    "heroCardLabel": "Finitions pensées véhicule",
+    "heroCardDescription": "De la voiture individuelle aux flottes brandées, Reactif vous accompagne dans la préparation, la production et la pose de visuels automobiles durables.",
+    "highlights": {
+      "wraps": {
+        "title": "Habillages et décoration",
+        "description": "Habillages complets ou partiels, accents couleur personnalisés et améliorations visuelles pour véhicules personnels et commerciaux."
+      },
+      "protection": {
+        "title": "Protection et teintage",
+        "description": "Films de protection, vitres teintées et solutions choisies pour un usage quotidien et une présentation durable."
+      },
+      "branding": {
+        "title": "Branding de flotte",
+        "description": "Compositions cohérentes pour vans, voitures et véhicules commerciaux afin de rendre votre marque visible sur chaque trajet."
+      }
+    },
+    "servicesEyebrow": "Services réservables",
+    "servicesTitle": "Services automobiles",
+    "allAutomotive": "Toutes les options automobile",
+    "loading": "Chargement des services automobiles...",
+    "errorTitle": "Impossible de charger les services automobiles",
+    "errorDescription": "Veuillez réessayer ou consulter le catalogue complet pendant l’actualisation des services.",
+    "emptyTitle": "Aucun service automobile trouvé",
+    "emptyDescription": "Les services automobiles apparaîtront ici dès qu’ils seront disponibles dans le catalogue."
   },
   "helpCenter": {
     "supportCenter": "Centre de support",
@@ -284,6 +423,15 @@
     "faq": {
       "title": "FAQ à la une",
       "description": "Trouvez rapidement les réponses aux questions les plus courantes.",
+      "loadingTitle": "Chargement des FAQ",
+      "loadingDescription": "Nous récupérons les dernières réponses du support.",
+      "errorTitle": "Impossible de charger les FAQ",
+      "errorDescription": "Le service FAQ du support est indisponible pour le moment. Veuillez réessayer.",
+      "emptyTitle": "Aucune FAQ disponible pour le moment",
+      "emptyDescription": "Les FAQ du support apparaîtront ici lorsque le backend renverra des réponses publiées.",
+      "noResultsTitle": "Aucune FAQ correspondante",
+      "noResultsDescription": "Essayez un autre mot-clé ou choisissez un sujet populaire.",
+      "clearSearch": "Effacer la recherche",
       "turnaroundTime": {
         "question": "Quel est le délai habituel pour un habillage complet de véhicule ?",
         "answer": "Le délai varie généralement de 3 à 7 jours ouvrés selon la complexité du design, l’impression et la planification de l’installation."
@@ -448,6 +596,7 @@
     "trackingLoading": "Chargement du suivi...",
     "trackingUnavailable": "Les données de suivi sont indisponibles.",
     "currentStatus": "Statut actuel",
+    "backendStatus": "Statut de réservation",
     "estimatedDelivery": "Livraison estimée",
     "origin": "Origine",
     "pendingConfirmation": "En attente de confirmation",
@@ -460,10 +609,43 @@
     "bookingService": "Service de réservation",
     "viewOrderDetails": "Voir les détails de la commande",
     "contactSupport": "Contacter le support",
+    "trackingStages": {
+      "pending": "En attente",
+      "inProduction": "En production",
+      "qualityCheck": "Contrôle qualité",
+      "shipped": "Expédié",
+      "delivered": "Livré"
+    },
     "paymentTitle": "Finaliser votre paiement",
     "paymentSubtitle": "Obtenez de l’aide de notre équipe support",
     "bookingPayment": "Paiement de réservation",
     "bookingFor": "Réservation pour {serviceName}"
+  },
+  "cart": {
+    "eyebrow": "Panier de réservation",
+    "title": "Votre panier",
+    "description": "Vérifiez les services sélectionnés avant de continuer vers l’adresse et le paiement.",
+    "items": "Articles",
+    "itemCount": "{count} article(s)",
+    "emptyTitle": "Votre panier est vide",
+    "emptyDescription": "Configurez un service et ajoutez-le ici avant de continuer vers l’adresse et le paiement.",
+    "browseServices": "Parcourir les services",
+    "localNotice": "Vos services sélectionnés sont prêts pour le paiement. Confirmez les détails ci-dessous avant de continuer.",
+    "readyForCheckout": "Prêt pour le paiement",
+    "service": "Service",
+    "descriptionFallback": "Les détails du service seront confirmés pendant le paiement.",
+    "estimatedTotal": "Total estimé",
+    "category": "Catégorie",
+    "configuration": "Configuration",
+    "fieldCount": "{count} champ(s)",
+    "updated": "Mis à jour",
+    "justNow": "À l’instant",
+    "notSelected": "Non sélectionné",
+    "remove": "Supprimer",
+    "removed": "Supprimé du panier.",
+    "clearCart": "Vider le panier",
+    "cleared": "Panier vidé.",
+    "continueCheckout": "Continuer le paiement"
   },
   "payment": {
     "orderSummary": "Résumé de la commande",
@@ -483,12 +665,23 @@
     "details": "Détails du paiement",
     "pendingMethod": "Paiement en attente",
     "loading": "Chargement...",
+    "loadingPaymentMethods": "Vérification des moyens de paiement disponibles.",
+    "processing": "Traitement...",
     "draftMissing": "Le brouillon de réservation est manquant. Veuillez recommencer la réservation.",
     "addMissingLocation": "Veuillez ajouter {fields} avant le paiement.",
     "loginBeforePayment": "Veuillez vous connecter avant de finaliser le paiement.",
     "couldNotComplete": "Le paiement n’a pas pu être finalisé",
+    "onlineCardNotConfigured": "Le paiement par carte en ligne n’est pas encore configuré.",
+    "onlineCardNotConfiguredDescription": "ReactIf n’a pas trouvé de moyen de paiement par carte actif.",
+    "onlineCardConfigured": "Le paiement par carte en ligne est configuré.",
+    "onlineCardConfiguredDescription": "{gateway} est disponible en {mode}. Saisissez les informations de carte pour traiter le paiement.",
+    "testMode": "mode test",
+    "liveMode": "mode live",
+    "paymentNotStartedNotice": "Le paiement est enregistré uniquement après confirmation du paiement par carte via Stripe.",
+    "cardDetails": "Informations de carte",
+    "stripeCouldNotLoad": "Stripe n’a pas pu être chargé. Veuillez réessayer.",
     "payAmount": "Payer {amount}",
-    "confirmationNotice": "Le paiement est confirmé avant l’envoi de la réservation. Les champs de carte ne sont pas envoyés.",
+    "confirmationNotice": "Aucun paiement n’est créé ni confirmé tant que Stripe ne confirme pas une transaction réelle.",
     "nameOnCard": "Nom sur la carte",
     "cardNumber": "Numéro de carte",
     "expiryDate": "Date d’expiration",
@@ -524,6 +717,9 @@
     "noActivity": "Aucune activité du portefeuille trouvée.",
     "activity": "Activité du portefeuille",
     "validAmount": "Veuillez entrer un montant de recharge valide.",
+    "paymentNotice": "Le solde du portefeuille est mis à jour uniquement après confirmation du paiement par carte.",
+    "loginBeforeTopUp": "Veuillez vous connecter avant de recharger votre portefeuille.",
+    "topUpTitle": "Recharge du portefeuille",
     "entry": "Entrée portefeuille #{id}",
     "credit": "crédit",
     "active": "actif"
@@ -583,10 +779,16 @@
     "contactUs": "Nous contacter",
     "support": "Support",
     "helpCenter": "Centre d’aide",
+    "faq": "FAQ",
     "contactSupport": "Contacter le support",
     "termsOfService": "Conditions d’utilisation",
     "privacyPolicy": "Politique de confidentialité",
-    "followUs": "Suivez-nous"
+    "followUs": "Suivez-nous",
+    "socialX": "Ouvrir ReactIf sur X",
+    "socialFacebook": "Ouvrir ReactIf sur Facebook",
+    "socialInstagram": "Ouvrir ReactIf sur Instagram",
+    "socialLinkedIn": "Ouvrir ReactIf sur LinkedIn",
+    "socialYouTube": "Ouvrir ReactIf sur YouTube"
   },
   "validation": {
     "emailRequired": "L’e-mail est obligatoire.",
@@ -614,9 +816,65 @@
     "fullName": "Nom complet",
     "serviceInterestedIn": "Service souhaité",
     "selectService": "Sélectionner un service",
+    "generalInquiry": "Demande générale",
     "message": "Message",
     "sendMessage": "Envoyer le message",
+    "sending": "Envoi...",
+    "submitSuccess": "Votre message a été envoyé au support ReactIf.",
+    "submitError": "Nous n’avons pas pu envoyer votre message. Veuillez réessayer.",
+    "signInRequired": "Veuillez vous connecter avant d’envoyer une demande au support.",
     "trustedBy": "Approuvé par"
+  },
+  "supportRequests": {
+    "eyebrow": "Historique support",
+    "title": "Demandes support enregistrées",
+    "description": "Consultez les messages déjà envoyés au support ReactIf et suivez leur statut actuel.",
+    "total": "Demandes",
+    "open": "Ouvertes",
+    "search": "Rechercher des demandes support",
+    "searchPlaceholder": "Rechercher par demande, service, e-mail ou statut",
+    "loadError": "Nous n’avons pas pu charger vos demandes support.",
+    "signInRequired": "Veuillez vous connecter pour voir vos demandes support enregistrées.",
+    "retry": "Réessayer",
+    "emptyTitle": "Aucune demande support pour le moment",
+    "emptyDescription": "Les messages de contact et de support apparaîtront ici après leur enregistrement par le backend.",
+    "noResultsTitle": "Aucune demande correspondante",
+    "noResultsDescription": "Essayez un autre service, statut, e-mail ou mot-clé de message.",
+    "requestFallback": "Demande support",
+    "initialsFallback": "DS",
+    "requestId": "Demande #{id}",
+    "dateFallback": "Date indisponible",
+    "statusFallback": "Ouverte",
+    "messageFallback": "Aucun aperçu de message disponible"
+  },
+  "designers": {
+    "portfolio": "Portfolio",
+    "viewPortfolio": "Voir le portfolio",
+    "select": "Sélectionner",
+    "selectDesigner": "Sélectionner le designer",
+    "chooseServiceFirst": "Choisir d’abord un service",
+    "available": "Disponible",
+    "unavailable": "Indisponible",
+    "online": "En ligne",
+    "offline": "Hors ligne",
+    "unnamed": "Designer sans nom",
+    "locationFallback": "Lieu non précisé",
+    "availableDesigner": "Designer disponible",
+    "currentlyUnavailable": "Actuellement indisponible",
+    "professionalDesigner": "Designer professionnel",
+    "professional": "Professionnel",
+    "contactForPrice": "Prix sur demande",
+    "backToDesigners": "Retour aux designers",
+    "loadingProfile": "Chargement du profil designer...",
+    "errorTitle": "Profil designer indisponible",
+    "notFoundTitle": "Designer introuvable",
+    "notFoundDescription": "Ce designer n’est pas disponible dans la liste client actuelle.",
+    "profileEyebrow": "Portfolio designer",
+    "profileDescription": "Consultez ce profil designer avant de poursuivre votre réservation avec le service et la catégorie sélectionnés.",
+    "rating": "Note",
+    "location": "Lieu",
+    "status": "Statut",
+    "contactSupport": "Contacter le support"
   },
   "about": {
     "heroTitleLine1": "L’EXCELLENCE EN COMMUNICATION",
@@ -651,6 +909,133 @@
           "description": "Technologie d’impression avancée garantissant fidélité des couleurs et durabilité sur la route."
         }
       }
+    }
+  },
+  "staticPages": {
+    "blogs": {
+      "eyebrow": "Actualités",
+      "title": "Histoires ReactIf et conseils d’impression",
+      "description": "Notre espace blog est en préparation pour partager des notes de projet, des guides matières, des conseils de pose et des idées de communication visuelle de l’équipe ReactIf.",
+      "cta": "Parler à notre équipe",
+      "readArticle": "Lire l’article",
+      "cards": {
+        "first": {
+          "title": "Notes de projet",
+          "description": "Les prochains articles présenteront des habillages, de la signalétique et les choix de production derrière les projets clients."
+        },
+        "second": {
+          "title": "Conseils matières",
+          "description": "Nous partagerons des conseils pratiques pour entretenir le vinyle, la signalétique, les impressions textile et les surfaces finies."
+        },
+        "third": {
+          "title": "Vision design",
+          "description": "Retrouvez bientôt des contenus courts sur la visibilité de marque, l’identité de flotte, les choix de mise en page et la communication automobile à fort impact."
+        }
+      },
+      "articles": {
+        "first": {
+          "category": "Habillage véhicule",
+          "readTime": "4 min de lecture",
+          "title": "Comment un habillage de marque transforme chaque trajet en campagne mobile",
+          "description": "Un regard pratique sur la hiérarchie visuelle, les messages lisibles et les choix matières pour des graphismes de flotte nets sur la route.",
+          "body": {
+            "first": "Un habillage de véhicule fonctionne mieux lorsqu’il est pensé comme un support média extérieur, pas seulement comme une décoration. Les compositions les plus efficaces gardent le nom de l’entreprise, le service et le contact lisibles en quelques secondes.",
+            "second": "Le contraste, la hiérarchie et un texte maîtrisé comptent davantage que le remplissage de chaque panneau. Pour une flotte, la cohérence est essentielle afin que la marque soit reconnue rapidement sur voitures et utilitaires.",
+            "third": "Le choix matière complète la campagne. Un vinyle durable, un traitement soigné des bords et le bon laminage aident le visuel à rester net face aux trajets quotidiens, à la météo et aux lavages."
+          },
+          "takeaways": {
+            "first": "Prioriser le nom de marque, le service et les contacts avant les graphismes secondaires.",
+            "second": "Concevoir pour la circulation avec un fort contraste et des messages courts.",
+            "third": "Adapter matière et finition à l’usage du véhicule, aux trajets et à la durée attendue."
+          }
+        },
+        "second": {
+          "category": "Guide d’entretien",
+          "readTime": "3 min de lecture",
+          "title": "Habitudes simples pour protéger couleur, finition et bords du vinyle",
+          "description": "Nettoyage doux, stationnement réfléchi et contrôle régulier des bords aident les habillages et surfaces de signalétique à rester premium plus longtemps.",
+          "body": {
+            "first": "Les finitions vinyle durent plus longtemps avec un nettoyage doux et régulier. Rincez d’abord la poussière, utilisez une solution légère et évitez les brosses agressives qui peuvent marquer les finitions brillantes, satinées ou mates.",
+            "second": "La chaleur et le soleil peuvent affecter les bords avec le temps, surtout autour des courbes, rétroviseurs et zones creuses. Stationner à l’ombre quand c’est possible et contrôler les bords après lavage limite les problèmes.",
+            "third": "Le nettoyage haute pression demande de la prudence. Gardez une distance suffisante, évitez de viser les joints et laissez au vinyle récemment posé le temps de se stabiliser avant un lavage intensif."
+          },
+          "takeaways": {
+            "first": "Utiliser des produits doux et des chiffons souples pour l’entretien courant.",
+            "second": "Inspecter régulièrement les bords et joints, surtout après chaleur ou lavage pression.",
+            "third": "Protéger les finitions mates et satinées des outils abrasifs et produits agressifs."
+          }
+        },
+        "third": {
+          "category": "Signalétique",
+          "readTime": "5 min de lecture",
+          "title": "Choisir une signalétique efficace de la vitrine au stand événementiel",
+          "description": "Comparez durabilité, distance de lecture, éclairage et contexte de pose avant de choisir le bon système de signalétique pour votre marque.",
+          "body": {
+            "first": "Une bonne signalétique commence par son environnement. Une enseigne de vitrine, une vitrophanie, un affichage intérieur ou un stand événementiel ont chacun des distances de lecture, éclairages et contraintes de pose différentes.",
+            "second": "Les matériaux doivent suivre ce contexte. Les supports extérieurs demandent durabilité et résistance météo, tandis que les affichages événementiels privilégient souvent légèreté, transport facile et montage rapide.",
+            "third": "Les meilleurs résultats viennent de l’alignement entre taille du message, contraste, finition et méthode de fixation avant la production. Cette préparation rend le support clair, pratique et cohérent avec la marque."
+          },
+          "takeaways": {
+            "first": "Choisir les matériaux selon un usage intérieur, extérieur, temporaire ou longue durée.",
+            "second": "Adapter taille du texte et contraste à la distance de lecture et à l’éclairage.",
+            "third": "Prévoir les besoins de pose et de transport avant de valider la production."
+          }
+        }
+      },
+      "detail": {
+        "backToBlogs": "Retour aux blogs",
+        "author": "Équipe éditoriale ReactIf",
+        "takeaways": "Points clés",
+        "nextStep": "Prochaine étape",
+        "ctaTitle": "Prêt à préparer votre projet visuel ?",
+        "ctaDescription": "Partagez votre objectif véhicule, signalétique ou impression et l’équipe ReactIf vous aidera à choisir la bonne matière et le bon parcours de production.",
+        "relatedTitle": "Plus d’articles"
+      }
+    },
+    "portfolio": {
+      "eyebrow": "Réalisations",
+      "title": "Le portfolio client arrive bientôt",
+      "description": "Nous préparons un portfolio dédié aux habillages de véhicules, à la signalétique, au textile et aux projets de publicité visuelle.",
+      "cta": "Démarrer un projet",
+      "cards": {
+        "first": {
+          "title": "Transformations véhicule",
+          "description": "Les habillages terminés et graphismes publicitaires seront présentés avec un contexte clair et les détails du service."
+        },
+        "second": {
+          "title": "Systèmes de signalétique",
+          "description": "Les futures entrées montreront enseignes, vitrophanies, supports d’affichage et résultats d’installation."
+        },
+        "third": {
+          "title": "Applications de marque",
+          "description": "Textile, accessoires et supports de campagne seront organisés pour faciliter la consultation client."
+        }
+      }
+    },
+    "support": {
+      "eyebrow": "Support client",
+      "title": "Support pour commandes, designs et services",
+      "description": "Contactez l’équipe ReactIf pour les questions de commande, l’accompagnement projet, la disponibilité des services et le support compte.",
+      "cta": "Envoyer un message",
+      "cards": {
+        "first": {
+          "title": "Aide commande",
+          "description": "Posez vos questions sur le statut de réservation, les étapes de paiement, le suivi ou les modifications d’une demande envoyée."
+        },
+        "second": {
+          "title": "Aide design",
+          "description": "Obtenez des conseils sur les fichiers, les choix de service, les matières et la préparation du projet avant production."
+        },
+        "third": {
+          "title": "Questions service",
+          "description": "Confirmez la disponibilité des services automobile, signalétique, textile, accessoires et publicité."
+        }
+      }
+    },
+    "faq": {
+      "eyebrow": "Questions fréquentes",
+      "title": "Réponses du support ReactIf",
+      "description": "Consultez les contenus FAQ actuels de notre système de support. Si le backend fournit des entrées FAQ, elles s’affichent automatiquement ici."
     }
   },
   "legal": {

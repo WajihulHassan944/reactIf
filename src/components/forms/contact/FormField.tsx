@@ -9,6 +9,10 @@ type FormFieldProps = {
   name: string;
   type?: string;
   placeholder?: string;
+  value?: string;
+  error?: string;
+  required?: boolean;
+  onChange?: (value: string) => void;
 };
 
 export function FormField({
@@ -16,8 +20,13 @@ export function FormField({
   name,
   type = "text",
   placeholder,
+  value,
+  error,
+  required = false,
+  onChange,
 }: FormFieldProps) {
   const inputId = useId();
+  const errorId = `${inputId}-error`;
 
   return (
     <div className="flex-1 flex flex-col gap-2">
@@ -29,8 +38,18 @@ export function FormField({
         name={name}
         type={type}
         placeholder={placeholder}
-        className="h-11 md:h-12 rounded-xl bg-zinc-800/25 border border-white/10 px-4 text-white outline-none focus:border-blue-500 transition"
+        value={value}
+        required={required}
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? errorId : undefined}
+        onChange={(event) => onChange?.(event.target.value)}
+        className="h-11 rounded-xl border-white/10 bg-zinc-800/25 px-4 text-white focus-visible:border-cyan-200/70 focus-visible:ring-cyan-200/20 md:h-12"
       />
+      {error ? (
+        <p id={errorId} className="text-xs font-medium text-rose-300">
+          {error}
+        </p>
+      ) : null}
     </div>
   );
 }

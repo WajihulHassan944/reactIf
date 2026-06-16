@@ -2,10 +2,17 @@
 
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
+import { StatusCard as StatusMessageCard } from "@/components/common/StatusCard";
 import { Button } from "@/components/ui/button";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useBookingDetail } from "@/hooks/useBookings";
 import { getBookingStatusTranslationKey } from "@/lib/booking-status";
+import {
+  TRACKING_STAGES,
+  getTrackingStageFromStatus,
+  getTrackingStageIndex,
+  getTrackingStageTranslationKey,
+} from "@/lib/tracking-status";
 import { DetailItem } from "./tracking/DetailItem";
 import { StatusCard } from "./tracking/StatusCard";
 import { TimelineItem } from "./tracking/TimelineItem";
@@ -20,43 +27,69 @@ export default function ShipmentTracking() {
   const { booking, loading, error } = useBookingDetail(bookingId);
 
   if (loading) {
-    return <p className="text-white/60 p-8">{t("order.trackingLoading")}</p>;
+    return (
+      <section className="w-full px-4 py-10">
+        <StatusMessageCard
+          tone="loading"
+          title={t("order.trackingLoading")}
+          className="mx-auto max-w-3xl"
+        />
+      </section>
+    );
   }
 
   if (error || !booking) {
-    return <p className="text-white/60 p-8">{t("order.trackingUnavailable")}</p>;
+    return (
+      <section className="w-full px-4 py-10">
+        <StatusMessageCard
+          tone="error"
+          label={t("common.backendError")}
+          title={t("order.trackingUnavailable")}
+          description={error ?? undefined}
+          action={
+            <Button
+              asChild
+              variant="neutralOutline"
+              className="h-11 rounded-full px-5"
+            >
+              <Link href="/order/management">{t("common.back")}</Link>
+            </Button>
+          }
+          className="mx-auto max-w-3xl"
+        />
+      </section>
+    );
   }
 
+  const currentStage = getTrackingStageFromStatus(booking.status);
+  const currentStageIndex = getTrackingStageIndex(currentStage);
   const statusLabel = t(getBookingStatusTranslationKey(booking.status));
+  const stageLabel = t(getTrackingStageTranslationKey(currentStage));
   const shipmentStatuses = [
-    { title: t("order.currentStatus"), value: statusLabel },
+    { title: t("order.currentStatus"), value: stageLabel },
+    { title: t("order.backendStatus"), value: statusLabel },
     {
       title: t("order.estimatedDelivery"),
       value: booking.schedule_datetime ?? t("order.pendingConfirmation"),
     },
-    { title: t("order.origin"), value: booking.address || t("order.addressPending") },
   ];
-  const shipmentTimeline = [
-    {
-      icon: "store" as const,
-      title: t("order.bookingCreated"),
-      date: booking.created_at,
-    },
-    {
-      icon: "truck" as const,
-      title: statusLabel,
-      date: booking.booking_datetime ?? booking.datetime ?? booking.created_at,
-    },
-    {
-      icon: "check" as const,
-      title: t("order.completed"),
-      date: booking.status === "completed" ? booking.created_at : t("order.trackingPending"),
-      last: true,
-    },
-  ];
+  const activeStageDate =
+    booking.booking_datetime ?? booking.datetime ?? booking.created_at;
+  const shipmentTimeline = TRACKING_STAGES.map((stage, index) => ({
+    icon:
+      index === 0
+        ? ("store" as const)
+        : stage === "delivered"
+          ? ("check" as const)
+          : ("truck" as const),
+    title: t(getTrackingStageTranslationKey(stage)),
+    date: index <= currentStageIndex ? activeStageDate : t("order.trackingPending"),
+    last: index === TRACKING_STAGES.length - 1,
+  }));
   const shipmentDetails = [
     { title: t("order.trackingNumberLabel"), value: `TRK-${booking.id}` },
     { title: t("order.service"), value: booking.service?.name ?? t("order.bookingService") },
+    { title: t("order.origin"), value: booking.address || t("order.addressPending") },
     { title: t("order.distance"), value: String(booking.distance ?? t("order.trackingPending")) },
     { title: t("booking.payment"), value: booking.payment_type ?? t("booking.pending") },
   ];
@@ -105,8 +138,13 @@ export default function ShipmentTracking() {
             {t("order.viewOrderDetails")}
           </Link>
 
-          <Button className="h-11 px-6 bg-pink-400 text-white font-semibold">
-            {t("order.contactSupport")}
+          <Button
+            asChild
+            className="h-11 px-6 bg-pink-400 text-white font-semibold"
+          >
+            <Link href={`/support?bookingId=${encodeURIComponent(String(booking.id))}`}>
+              {t("order.contactSupport")}
+            </Link>
           </Button>
         </div>
       </div>

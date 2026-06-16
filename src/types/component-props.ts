@@ -17,6 +17,7 @@ export interface SpecialistCardProps {
   avatarImage?: string | null;
   portfolioLink?: string;
   selectLink?: string;
+  selectFallbackLink?: string;
   available?: boolean;
 }
 
@@ -33,6 +34,7 @@ export type DesktopNavLinksProps = {
 
 export type NavbarActionsProps = {
   user: NavbarUser | null;
+  authLoading: boolean;
   dropdownOpen: boolean;
   dropdownRef: RefObject<HTMLDivElement | null>;
   onToggleDropdown: () => void;
@@ -52,6 +54,7 @@ export type UserDropdownProps = {
 export type MobileSidebarProps = {
   isOpen: boolean;
   user: NavbarUser | null;
+  authLoading: boolean;
   navItems: NavItem[];
   onClose: () => void;
   onSignOut: () => void;
@@ -61,6 +64,8 @@ export type MobileSidebarProps = {
 export type PopularHelpLinkProps = {
   label: string;
   labelKey?: string;
+  query: string;
+  onSelect: (query: string) => void;
 };
 
 export type HelpCardData = {
@@ -166,7 +171,6 @@ export type SpecialistListStatusProps = {
 };
 
 export type SpecialistGridProps = {
-  categoryId: string | null;
   queryString: string;
 };
 
@@ -180,16 +184,19 @@ export type CarrierBadgeProps = {
 };
 
 export type CatalogCardProps = {
-  item: import("@/types/catalog").CatalogItem;
+  service: Service;
+  categoryName: string;
 };
 
 export type CatalogSectionProps = {
   title: string;
-  items: import("@/types/catalog").CatalogItem[];
+  services: Service[];
+  categoryNamesById: Map<number, string>;
 };
 
 export type CatalogScrollerProps = {
-  items: import("@/types/catalog").CatalogItem[];
+  services: Service[];
+  categoryNamesById: Map<number, string>;
 };
 
 export type CatalogCategoryButtonProps = {

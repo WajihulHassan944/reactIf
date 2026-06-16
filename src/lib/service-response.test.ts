@@ -22,7 +22,10 @@ describe("normalizeServicesResponse", () => {
           category_id: "2",
           sub_category_id: "3",
           service_image: "image.png",
+          image_gallery: [{ url: "gallery-one.png" }, "gallery-two.png"],
           price: "99.5",
+          status: "1",
+          lead_time: "3 business days",
           fields: [
             {
               id: "11",
@@ -43,6 +46,9 @@ describe("normalizeServicesResponse", () => {
       category_id: 2,
       sub_category_id: 3,
       price: 99.5,
+      status: 1,
+      lead_time: "3 business days",
+      image_gallery: ["gallery-one.png", "gallery-two.png"],
     });
     expect(response.data[0]?.fields[0]?.options).toEqual([
       { key: "matte", display: "Matte" },
