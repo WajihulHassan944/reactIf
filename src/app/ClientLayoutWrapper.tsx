@@ -9,6 +9,7 @@ import { LanguageProvider } from "@/components/providers/language-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { useAuth } from "@/hooks/useAuth";
+import { FloatingWhatsAppButton } from "@/components/common/FloatingWhatsAppButton";
 
 function ClientLayoutContent({ children }: { children: ReactNode }) {
   useAuth();
@@ -24,6 +25,7 @@ function ClientLayoutContent({ children }: { children: ReactNode }) {
       <div data-print-hidden="true">
         <Footer />
       </div>
+      <FloatingWhatsAppButton />
     </div>
   );
 }

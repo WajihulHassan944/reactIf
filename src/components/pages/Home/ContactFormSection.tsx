@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { Container } from "@/components/common/Container";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import ContactForm from "@/components/forms/ContactForm";
@@ -14,24 +13,17 @@ function StartProjectContent() {
   const isHelpCenter = pathname === "/help-center";
 
   return (
-    <section id="contact" className="relative scroll-mt-24 py-16 md:py-28 overflow-hidden">
-      {!isHelpCenter && (
-        <Image
-          src="/assets/hero/gradient.png"
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover -z-10"
-        />
-      )}
-
+    <section
+      id="contact"
+      className="relative scroll-mt-24 overflow-hidden bg-[#010101] py-16 md:py-28"
+    >
       <Container gutter="narrow">
         <SectionHeader
           badgeText={t("home.contact.badge")}
           size={isHelpCenter ? "sm" : "default"}
           title={
             <>
-              {t("home.contact.titlePrefix")}{" "}
+              {t("home.contact.titlePrefix")} {" "}
               <span
                 style={{
                   background:

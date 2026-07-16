@@ -12,8 +12,8 @@ type GlobalBackgroundProps = {
 };
 
 export default function GlobalBackground({
-  imageUrl = "/assets/AllVendorServices/background.png",
-  overlayColor = "#010304",
+  imageUrl,
+  overlayColor = "#010101",
   className,
   style,
 }: GlobalBackgroundProps) {
@@ -24,7 +24,7 @@ export default function GlobalBackground({
         className,
       )}
       style={{
-        backgroundImage: `url('${imageUrl}')`,
+        backgroundImage: imageUrl ? `url('${imageUrl}')` : "none",
         backgroundColor: overlayColor,
         ...style,
       }}

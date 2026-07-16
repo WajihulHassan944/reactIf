@@ -1,23 +1,36 @@
 import { FaEnvelope, FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
 
+export const reactifContact = {
+  phone: "+41 78 325 18 88",
+  whatsappPhone: "41783251888",
+  email: "info@reactifpub.ch",
+  address: "Ch. de Morglas 7, 1214 Vernier Genève",
+} as const;
+
+export const reactifSocialLinks = {
+  tiktok: "https://www.tiktok.com/@reactifpub",
+  facebook: "https://www.facebook.com/reactifpub",
+  instagram: "https://www.instagram.com/reactifpub",
+} as const;
+
 export const contactItems = [
   {
     icon: FaPhoneAlt,
     label: "Phone",
     labelKey: "contact.phone",
-    value: "+33 1 23 45 67 89",
+    value: reactifContact.phone,
   },
   {
     icon: FaEnvelope,
     label: "Email",
     labelKey: "contact.email",
-    value: "reactif@gmail.com",
+    value: reactifContact.email,
   },
   {
     icon: FaMapMarkerAlt,
     label: "Address",
     labelKey: "contact.address",
-    value: "123 Avenue des Champs, Paris, France",
+    value: reactifContact.address,
   },
 ];
 
