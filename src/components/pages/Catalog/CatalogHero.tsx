@@ -3,7 +3,7 @@
 import { HeroText, HeroTitle } from "@/components/common/HeroUi";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 
-export default function CatalogHero() {
+export function CatalogHero() {
   const { t } = useAppTranslation();
 
   return (

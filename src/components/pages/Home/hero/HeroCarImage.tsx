@@ -13,7 +13,7 @@ const speedLineKeys = [
 export function HeroCarImage() {
   return (
     <div
-      className="relative flex min-h-[330px] w-full items-center justify-center pt-2 transition-transform duration-300 sm:min-h-[420px] lg:min-h-[550px] lg:justify-end lg:self-center lg:pt-0"
+      className="relative z-10 flex min-h-[330px] w-full items-center justify-center pt-2 transition-transform duration-300 sm:min-h-[420px] lg:min-h-[550px] lg:justify-end lg:self-center lg:pt-0"
       style={{
         transform:
           "translate3d(calc(var(--hero-parallax-x, 0px) * 0.68), calc(var(--hero-parallax-y, 0px) * 0.58), 0)",
@@ -32,20 +32,33 @@ export function HeroCarImage() {
 
         <div className="hero-showcase-car">
           <Image
-            src="/assets/hero/reactif-neon-car.png"
+            src="/assets/hero/reactif-wheel-hd.png"
             alt=""
-            width={1363}
-            height={470}
+            width={2048}
+            height={2048}
             priority
+            sizes="(min-width: 1280px) 11vw, (min-width: 768px) 14vw, 21vw"
+            className="hero-showcase-wheel hero-showcase-wheel-front"
+          />
+          <Image
+            src="/assets/hero/reactif-wheel-hd.png"
+            alt=""
+            width={2048}
+            height={2048}
+            priority
+            sizes="(min-width: 1280px) 10vw, (min-width: 768px) 13vw, 20vw"
+            className="hero-showcase-wheel hero-showcase-wheel-rear"
+          />
+          <Image
+            src="/assets/hero/reactif-car-body-hd.png"
+            alt=""
+            width={3344}
+            height={1882}
+            priority
+            unoptimized
             sizes="(min-width: 1280px) 58vw, (min-width: 1024px) 54vw, 95vw"
             className="hero-showcase-car-image"
           />
-          <span className="hero-showcase-wheel hero-showcase-wheel-front">
-            <span />
-          </span>
-          <span className="hero-showcase-wheel hero-showcase-wheel-rear">
-            <span />
-          </span>
         </div>
       </div>
     </div>

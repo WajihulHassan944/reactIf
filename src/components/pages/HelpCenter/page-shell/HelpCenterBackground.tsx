@@ -1,4 +1,4 @@
-import GlobalBackground from "@/hooks/GlobalBackground";
+import { GlobalBackground } from "@/hooks/GlobalBackground";
 
 export function HelpCenterBackground() {
   return (

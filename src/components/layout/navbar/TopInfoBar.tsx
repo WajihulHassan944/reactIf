@@ -5,7 +5,7 @@ import { Container } from "@/components/common/Container";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { reactifContact } from "@/data/contact";
 
-export default function TopInfoBar() {
+export function TopInfoBar() {
   const { t } = useAppTranslation();
 
   return (

@@ -46,7 +46,7 @@ function StartProjectContent() {
   );
 }
 
-export default function StartProjectSection() {
+export function StartProjectSection() {
   return (
     <Suspense fallback={null}>
       <StartProjectContent />

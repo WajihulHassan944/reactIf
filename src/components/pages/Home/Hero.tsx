@@ -10,7 +10,7 @@ const resetParallax = (element: HTMLElement | null) => {
   element?.style.setProperty("--hero-parallax-y", "0px");
 };
 
-export default function Hero() {
+export function Hero() {
   const sectionRef = useRef<HTMLElement | null>(null);
 
   const handlePointerMove = (event: PointerEvent<HTMLElement>) => {

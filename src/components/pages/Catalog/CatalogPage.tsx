@@ -14,7 +14,7 @@ import {
 } from "@/lib/catalog-search";
 import type { Service } from "@/types/categories";
 import CatalogSection from "./CatalogSection";
-import CatalogHero from "./CatalogHero";
+import { CatalogHero } from "./CatalogHero";
 import { ProductFilterBar } from "./ProductFilterBar";
 import type { CatalogPriceSort } from "./FiltersButton";
 import { CatalogCategoryExplorer } from "./CatalogCategoryExplorer";

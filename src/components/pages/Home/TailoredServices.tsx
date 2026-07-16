@@ -28,7 +28,7 @@ const isMatchingCategory = (
   });
 };
 
-export default function TailoredServices() {
+export function TailoredServices() {
   const { t } = useAppTranslation();
   const { categories } = useCategories({ per_page: 100 });
 

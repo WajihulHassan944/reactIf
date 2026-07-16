@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Container } from "@/components/common/Container";
 import { ContactCtaCard } from "./contact-section/ContactCtaCard";
 
-export default function ContactSection() {
+export function ContactSection() {
   const [loading, setLoading] = useState(false);
 
   const handleRequestQuote = () => {

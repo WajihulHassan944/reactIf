@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { galleryItems } from "@/data/home";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 
-export default function GallerySection() {
+export function GallerySection() {
   const { t } = useAppTranslation();
 
   return (

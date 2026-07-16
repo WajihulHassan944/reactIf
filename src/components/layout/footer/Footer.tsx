@@ -19,7 +19,7 @@ import {
 } from "@/lib/category-routes";
 import { getStartedRoute } from "@/lib/get-started-routes";
 
-export default function Footer() {
+export function Footer() {
   const router = useRouter();
   const { t } = useAppTranslation();
   const { data: user, isLoading: authLoading } = useCurrentUser();

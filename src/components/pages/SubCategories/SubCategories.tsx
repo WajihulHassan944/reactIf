@@ -20,7 +20,7 @@ type SubCategoriesProps = {
   subcategories: Subcategory[];
 };
 
-function SubCategories({ subcategories }: SubCategoriesProps) {
+export function SubCategories({ subcategories }: SubCategoriesProps) {
   const [openModal, setOpenModal] = useState(false);
   const [selectedSub, setSelectedSub] = useState<Subcategory | null>(null);
   const selectedSubcategoryId = selectedSub?.id;
@@ -117,5 +117,3 @@ function SubCategories({ subcategories }: SubCategoriesProps) {
     </section>
   );
 }
-
-export default SubCategories;

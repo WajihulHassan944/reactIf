@@ -11,7 +11,7 @@ type GlobalBackgroundProps = {
   style?: CSSProperties;
 };
 
-export default function GlobalBackground({
+export function GlobalBackground({
   imageUrl,
   overlayColor = "#010101",
   className,

@@ -6,7 +6,7 @@ import { Container } from "@/components/common/Container";
 import { whyChooseUsRows } from "@/data/home";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 
-export default function WhyChooseUs() {
+export function WhyChooseUs() {
   const { t } = useAppTranslation();
 
   return (

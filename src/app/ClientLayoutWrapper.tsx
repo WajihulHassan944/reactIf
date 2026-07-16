@@ -1,9 +1,9 @@
 "use client";
 
 import { ReactNode } from "react";
-import Footer from "@/components/layout/footer/Footer";
+import { Footer } from "@/components/layout/footer/Footer";
 import { Navbar } from "@/components/layout/navbar/navbar";
-import TopInfoBar from "@/components/layout/navbar/TopInfoBar";
+import { TopInfoBar } from "@/components/layout/navbar/TopInfoBar";
 import { Toaster } from "sonner";
 import { LanguageProvider } from "@/components/providers/language-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
